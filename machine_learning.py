@@ -133,10 +133,23 @@ predict_train_svm_rbf = svm_rbf_model.predict(x_train)
 predict_test_svm_rbf = svm_rbf_model.predict(x_test)
 predict_test_svm_rbf_proba = model_svm_rbf.predict_proba(x_test)
 print('SVM RBF:')
-print('Predictions:', predict_test_xgb)
+print('Predictions:', predict_test_svm_rbf)
 print(predict_test_svm_rbf_proba)
 print('Training Accuracy:', metrics.accuracy_score(y_train, predict_train_svm_rbf))
 #print('Validation Accuracy:', metrics.accuracy_score(y_test, predict_test_svm_rbf))
+print('\n')
+
+model_knn = KNeighborsClassifier()
+knn_model = model_knn.fit(x_train, y_train)
+predict_train_knn = knn_model.predict(x_train)
+predict_test_knn = knn_model.predict(x_test)
+predict_test_knn_proba = model_knn.predict_proba(x_test)
+print('K Nearest Neighbors:')
+print('Predictions:', predict_test_knn)
+print(predict_test_knn_proba)
+print('Training Accuracy:', metrics.accuracy_score(y_train, predict_train_knn))
+#print('Validation Accuracy:', metrics.accuracy_score(y_test, predict_test_knn))
+
 
 
 prediction_final = week8[['Away Team','AT','Home Team']]
@@ -201,6 +214,16 @@ for pred in svm_pred:
   elif predict_test_svm_rbf_proba[rownum][1] * 100 == 50:
     prediction_final.loc[rownum, 'SVM RBF Prob'] = 50
 
+  rownum += 1
+
+rownum = 0
+for predic in predict_test_knn:
+  if predic == 1:
+    prediction_final.loc[rownum, 'KNN Pred'] = 'Home'
+    prediction_final.loc[rownum, 'KNN Prob'] = predict_test_knn_proba[rownum][1] * 100
+  elif predic == -1:
+    prediction_final.loc[rownum, 'KNN Pred'] = 'Away'
+    prediction_final.loc[rownum, 'KNN Prob'] = predict_test_knn_proba[rownum][0] * 100
   rownum += 1
 
 print(prediction_final) 
