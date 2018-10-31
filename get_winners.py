@@ -4,7 +4,7 @@ import sys
 import csv
 import pandas as pd
 
-weeknum = '6'
+weeknum = '5'
 
 def ask_user_for_winners(weeknum):
   count = 0
