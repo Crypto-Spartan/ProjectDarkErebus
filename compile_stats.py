@@ -29,7 +29,7 @@ def compile_off_def_inj(weeknum):
   team = lines.iloc[rownum]
   df_off_stats = pd.read_csv('nfl_stats_off_week'+weeknum+'.csv')
   df_def_stats = pd.read_csv('nfl_stats_def_week'+weeknum+'.csv')
-  df_injury_stats = pd.read_csv('injuries_stats_week'+weeknum+'.csv')
+  df_injury_stats = pd.read_csv('injuries_stats_week'+weeknum+'.csv', index_col=0)
 
   try:
     while team.empty == False:
@@ -41,35 +41,44 @@ def compile_off_def_inj(weeknum):
       except IndexError:
         break
 
+      iterrow_count = 0
       for index, row in df_off_stats.iterrows():
         #print (row['RK'], row['TEAM'], row['YDS/G'], row['PTS/G'])
-      
         teamrk_offyds = row['RK']
         teamname_off = str(row['TEAM'])
         teamoffydsg = row['YDS/G']
         teamoffptsg = row['PTS/G']
-
-        #print(teamname + ' teamname')
-        #print(team + ' team')
-      
+        
+        test_empty_string = str(row['RK']).replace(u'\xa0', u' ')
+        if test_empty_string == ' ' and iterrow_count > 0:
+          teamrk_offyds = df_off_stats.loc[iterrow_count-1, 'RK']
+          
         if teamname_off == str(teamname_line):
-          lines.loc[rownum, 'OFF RK (YDS)'] = teamrk_offyds
+          lines.loc[rownum, 'OFF RK (YDS)'] = int(teamrk_offyds)
           lines.loc[rownum, 'OFF YDS/G'] = teamoffydsg
           lines.loc[rownum, 'POINTS FOR'] = teamoffptsg
-          #print('IT WORKED')
-        else:
-          pass
-          #print(teamname + ' teamname')
-          #print(team + ' team')
+        
+        iterrow_count += 1
 
+      
+      iterrow_count = 0
       for index, row in df_def_stats.iterrows():
         #print (row['RK'], row['TEAM'], row['YDS/G'], row['PTS/G']
         teamname_def = str(row['TEAM'])
-
+        teamrk_defyds = row['RK']
+        teamdefydsg = row['YDS/G']
+        teamdefptsg = row['PTS/G']
+        
+        test_empty_string = str(row['RK']).replace(u'\xa0', u' ')
+        if test_empty_string == ' ' and iterrow_count > 0:
+          teamrk_defyds = df_def_stats.loc[iterrow_count-1, 'RK']
+        
         if teamname_def == str(teamname_line):
-          lines.loc[rownum, 'DEF RK (YDS)'] = row['RK']
-          lines.loc[rownum, 'DEF YDS/G'] = row['YDS/G']
-          lines.loc[rownum, 'POINTS ALWD'] = row['PTS/G']
+          lines.loc[rownum, 'DEF RK (YDS)'] = int(teamrk_defyds)
+          lines.loc[rownum, 'DEF YDS/G'] = teamdefydsg
+          lines.loc[rownum, 'POINTS ALWD'] = teamdefptsg
+
+        iterrow_count += 1
 
       if rownum % 2 == 1:
         lines.loc[rownum, 'H/A'] = 1
@@ -86,6 +95,7 @@ def compile_off_def_inj(weeknum):
 
       rownum += 1
 
+    
   except AttributeError as Error:
     print('I BROKE')
     print(Error)  
@@ -400,7 +410,7 @@ def setup_matchup(compiled_stats, weeknum):
     except:
       break
 
-
+    
     while stat_line.empty == False:
 
       try:
@@ -434,7 +444,20 @@ def setup_matchup(compiled_stats, weeknum):
         final_matchups.loc[rownum, 'AwT_NonIR'] = stat_line.get('Non-IR')
         final_matchups.loc[rownum, 'AwT_IR'] = stat_line.get('IR')
       
-      elif teamname_stats == home_team:
+      rownum_stats += 1
+      
+    rownum_stats = 0
+    while stat_line.empty == False:
+
+      try:
+        stat_line = stats_list.loc[rownum_stats]
+        teamname_stats = stat_line.get('Teamname')
+      except:
+        break
+      #print(stat_line)
+      #print(teamname_stats)
+
+      if teamname_stats == home_team:
         final_matchups.loc[rownum, 'HmT_W'] = stat_line.get('W')
         final_matchups.loc[rownum, 'HmT_L'] = stat_line.get('L')
         final_matchups.loc[rownum, 'HmT_T'] = stat_line.get('T')
@@ -459,10 +482,25 @@ def setup_matchup(compiled_stats, weeknum):
 
 
       rownum_stats += 1
-      
+    
+    rownum += 1
 
+  print('setting dummy variables')
+
+  for team in stats_list.iterrows():
+    teamname = team[1].get('Teamname')
+    final_matchups.loc[:, 'Away Team_'+teamname] = 0
+    final_matchups.loc[:, 'Home Team_'+teamname] = 0
+
+  rownum = 0
+  for game in final_matchups.iterrows():
+    home_team = game[1].get('Home Team')
+    away_team = game[1].get('Away Team')
+    final_matchups.loc[rownum, 'Away Team_'+away_team] = 1
+    final_matchups.loc[rownum, 'Home Team_'+home_team] = 1
 
     rownum += 1
+    
 
   #print(final_matchups.to_string())
   final_matchups.to_csv('final_matchups_week'+weeknum+'.csv')
