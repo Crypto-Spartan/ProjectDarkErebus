@@ -5,6 +5,7 @@ import csv
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
+pd.set_option('max_columns', 50)
 
 def get_all(weeknum):
   print('getting stats')
@@ -72,11 +73,12 @@ def get_espn_lines(weeknum):
   df_raw_lines = pd.DataFrame(list_of_rows) 
   df_raw_lines = df_raw_lines[1:] #take the data less the header row
   df_raw_lines.columns = ['Name of Game', 'Betting Source', 'Team Line', 'Raw Line']
-  #print(df_raw_lines.to_string())
+  #print(df_raw_lines)
 
   # assign variables to count row numbers
   row_start = 1
   row_end = 6
+  row_count_line = 1
   # find the line data from the dataframe
   game = df_raw_lines.loc[row_start:row_end]
   # dictionary to add team and line info to
@@ -138,9 +140,23 @@ def get_espn_lines(weeknum):
         elif numset == 'N/A':
           pass
 
-        else:
+        elif numset == 'EVEN':
           print(game)
-          sys.exit('ERROR: UNKNOWN AVG LINE LENGTH')
+          print(numset)
+          count += 1
+
+        else:
+          if df_raw_lines.loc[row_count_line, 'Team Line'] == 'EVEN':
+            count += 1
+            pass
+          else:
+            print(row_count_line)
+            print (df_raw_lines.loc[row_count_line, 'Team Line'])
+            print (numset)
+            print(game.to_string())
+            sys.exit('ERROR: UNKNOWN AVG LINE LENGTH')
+      
+      row_count_line += 1    
   
     #print (game.loc[:, 'Raw Line'])
   
@@ -170,11 +186,11 @@ def get_espn_lines(weeknum):
     team_lines[team1] = team1_avg_line
     team_lines[team2] = team2_avg_line
 
-    # restate game variable for looping
-    game = df_raw_lines.loc[row_start:row_end]
     # go to next game for each loop
     row_start += 6
     row_end += 6
+    # restate game variable for looping
+    game = df_raw_lines.loc[row_start:row_end]
 
   #print(team_lines)
 
@@ -490,7 +506,7 @@ def get_injuries_stats(weeknum):
     elif teamname == 'MIN':
       df_combined.iloc[rownum, 0] = 'Minnesota'
     elif teamname == 'DET':
-      df_combined.iloc[rownum, 0] = 'Detriot'
+      df_combined.iloc[rownum, 0] = 'Detroit'
     elif teamname == 'NOR':
       df_combined.iloc[rownum, 0] = 'New Orleans'
     elif teamname == 'CAR':
