@@ -5,29 +5,31 @@ import pandas as pd
 
 
 # build entire pandas table
-def build_table():
+def build_table(weeknum):
   print('building table')
   print('compiling stats')
   #creating compiled_stats object
-  compiled_stats = compile_w_standings(compile_off_def_inj())
+  compiled_stats = compile_w_standings(compile_off_def_inj(weeknum), weeknum)
   print('fixing team names')
-  rename_games(compiled_stats)
-  print('finding opponents, finishing table')
-  get_opponent(compiled_stats)
+  rename_games(compiled_stats, weeknum)
+  print('finding opponents')
+  drop_bye_weeks(get_opponent(compiled_stats, weeknum), weeknum)
+  print('creating matchups')
+  setup_matchup(compiled_stats, weeknum)
   print()
   print('table build complete')
-  print('full data available in "compiled_stats_week<#>.csv"')
+  
 
 
 # put together offensive stats, defensive stats, and injury stats
-def compile_off_def_inj():
+def compile_off_def_inj(weeknum):
   rownum = 0
-  lines = pd.read_csv('nfl_lines.csv')
+  lines = pd.read_csv('nfl_lines_week'+weeknum+'.csv')
   lines.rename(columns={'Unnamed: 0':'Team Name'}, inplace=True)
   team = lines.iloc[rownum]
-  df_off_stats = pd.read_csv('nfl_stats_off.csv')
-  df_def_stats = pd.read_csv('nfl_stats_def.csv')
-  df_injury_stats = pd.read_csv('injuries_stats.csv')
+  df_off_stats = pd.read_csv('nfl_stats_off_week'+weeknum+'.csv')
+  df_def_stats = pd.read_csv('nfl_stats_def_week'+weeknum+'.csv')
+  df_injury_stats = pd.read_csv('injuries_stats_week'+weeknum+'.csv')
 
   try:
     while team.empty == False:
@@ -42,10 +44,10 @@ def compile_off_def_inj():
       for index, row in df_off_stats.iterrows():
         #print (row['RK'], row['TEAM'], row['YDS/G'], row['PTS/G'])
       
-        teamrk_offyds = str(row['RK'])
+        teamrk_offyds = row['RK']
         teamname_off = str(row['TEAM'])
-        teamoffydsg = str(row['YDS/G'])
-        teamoffptsg = str(row['PTS/G'])
+        teamoffydsg = row['YDS/G']
+        teamoffptsg = row['PTS/G']
 
         #print(teamname + ' teamname')
         #print(team + ' team')
@@ -65,22 +67,22 @@ def compile_off_def_inj():
         teamname_def = str(row['TEAM'])
 
         if teamname_def == str(teamname_line):
-          lines.loc[rownum, 'DEF RK (YDS)'] = str(row['RK'])
-          lines.loc[rownum, 'DEF YDS/G'] = str(row['YDS/G'])
-          lines.loc[rownum, 'POINTS ALWD'] = str(row['PTS/G'])
+          lines.loc[rownum, 'DEF RK (YDS)'] = row['RK']
+          lines.loc[rownum, 'DEF YDS/G'] = row['YDS/G']
+          lines.loc[rownum, 'POINTS ALWD'] = row['PTS/G']
 
       if rownum % 2 == 1:
-        lines.loc[rownum, 'H/A'] = 'Home'
+        lines.loc[rownum, 'H/A'] = 1
       elif rownum % 2 == 0:
-        lines.loc[rownum, 'H/A'] = 'Away'
+        lines.loc[rownum, 'H/A'] = 0
     
       for index, row in df_injury_stats.iterrows():
         teamname_inj = str(row['Team'])
 
         if teamname_inj == str(teamname_line):
-          lines.loc[rownum, 'Total Injured'] = str(row['Total Injured'])
-          lines.loc[rownum, 'Non-IR'] = str(row['Non-IR'])
-          lines.loc[rownum, 'IR'] = str(row['IR'])
+          lines.loc[rownum, 'Total Injured'] = row['Total Injured']
+          lines.loc[rownum, 'Non-IR'] = row['Non-IR']
+          lines.loc[rownum, 'IR'] = row['IR']
 
       rownum += 1
 
@@ -96,16 +98,88 @@ def compile_off_def_inj():
   games_ha = lines['H/A']
   games = pd.concat([games_tn, games_al, games_ha], axis=1, join_axes=[games_tn.index])
   #print(games.to_string())
-  games.to_csv('games.csv')
+  games.to_csv('games_week'+weeknum+'.csv')
   return lines
 
 
 # put everything together with the standings
-def compile_w_standings(team_stats):
+def compile_w_standings(team_stats, weeknum):
   rownum = 0
-  standings = pd.read_csv('standings.csv', index_col=0)
+  standings = pd.read_csv('standings_week'+weeknum+'.csv', index_col=0)
   team = standings.iloc[rownum]
 
+  while team.empty == False:
+    
+    try:
+      team = standings.iloc[rownum,:]
+      team_strk = team.get('STRK')
+    except IndexError:
+      break
+
+    if team_strk[0] == 'W':
+      team_strk = int(team_strk[1:])
+    elif team_strk[0] == 'L':
+      team_strk = int(team_strk[1:]) * -1
+    elif '-' in team_strk:
+      team_strk = 0
+    else:
+      print(team_strk)
+      print('TEAM STRK ERROR')
+      break
+    
+    standings.loc[rownum, 'STRK'] = team_strk
+    rownum += 1
+
+  rownum = 0
+  while team.empty == False:
+    
+    try:
+      team = standings.iloc[rownum,:]
+      teamname_standings = team.get('Teamname')
+      home = team.get('HOME')
+      away = team.get('AWAY')
+      div = team.get('DIV')
+      conf = team.get('CONF')
+    except IndexError:
+      break
+
+    if int(home[2]) == 0:
+      home = float(1)
+    elif int(home[0]) == 0:
+      home = float(0)
+    else:
+      home = float(home[0]) / (float(home[0]) + float(home[2])) 
+    
+    if int(away[2]) == 0:
+      away = float(1)
+    elif int(away[0]) == 0:
+      away = float(0)
+    else:
+      away = float(away[0]) / (float(away[0]) + float(away[2]))
+
+    if int(div[2]) == 0:
+      div = float(1)
+    elif int(div[0]) == 0:
+      div = float(0)
+    else:
+      div = float(div[0]) / (float(div[0]) + float(div[2]))
+
+    if int(conf[2]) == 0:
+      conf = float(1)
+    elif int(conf[0]) == 0:
+      conf = float(0)
+    else:
+      conf = float(conf[0]) / (float(conf[0]) + float(conf[2]))
+
+    standings.loc[rownum, 'HOME'] = home
+    standings.loc[rownum, 'AWAY'] = away
+    standings.loc[rownum, 'DIV'] = div
+    standings.loc[rownum, 'CONF'] = conf
+    rownum += 1
+
+  #print (standings.to_string())
+
+  rownum = 0
   while team.empty == False: #and rownum < 1:
   
     try:
@@ -156,12 +230,12 @@ def compile_w_standings(team_stats):
 
 
 #put full team names in games.csv
-def rename_games(compiled_stats):
+def rename_games(compiled_stats, weeknum):
   rownum = 0
-  games_list = pd.read_csv('games.csv', index_col=0)
+  games_list = pd.read_csv('games_week'+weeknum+'.csv', index_col=0)
   game = games_list.iloc[rownum]
 
-  while game.empty == False and rownum < 35:
+  while game.empty == False:
     
     try:
       game = games_list.iloc[rownum,:]
@@ -184,17 +258,16 @@ def rename_games(compiled_stats):
       
     rownum += 1
   #print(games_list.to_string())
-  games_list.to_csv('games.csv')
+  games_list.to_csv('games_week'+weeknum+'.csv')
 
 
 # find each team's opponent, add it in a column
-def get_opponent(compiled_stats):
+def get_opponent(compiled_stats, weeknum):
   rownum = 0
   row_start = 0
   row_end = 1
-  games_list = pd.read_csv('games.csv', index_col=0)
+  games_list = pd.read_csv('games_week'+weeknum+'.csv', index_col=0)
   game = games_list.loc[row_start:row_end]
-  
 
   while game.empty == False and rownum < 35:
     row_count = 0
@@ -235,23 +308,164 @@ def get_opponent(compiled_stats):
     row_end += 2
     game = games_list.loc[row_start:row_end]
 
-  def get_weeknum():
-    weeknum = 0
-    
-    print()
-      
-    while weeknum not in range(1,23):
-      try:
-        weeknum = int(input('Please enter the number of the week that we\'re in:'))
-        if weeknum in range(1,23):
-          break
-        else:
-          print('You did not enter a valid week number')
-          #weeknum = int(input('Please enter the number of the week that we\'re in:'))
-      except ValueError or UnboundLocalError:
-        print('You did not enter a valid week number')
-    return weeknum
-
-  weeknum = str(get_weeknum())     
+       
   #print(compiled_stats.to_string())
-  compiled_stats.to_csv('compiled_stats_week'+weeknum+'.csv')
+  #compiled_stats.to_csv('compiled_stats_week'+weeknum+'.csv')
+  return(compiled_stats)
+
+
+def drop_bye_weeks(compiled_stats, weeknum):
+  print('removing teams on bye')
+  rownum = 0
+  stats_list = compiled_stats
+  game = stats_list.iloc[rownum]
+
+  while game.empty == False:
+    
+    try:
+      game = stats_list.iloc[rownum,:]
+      teamname = game.get('Teamname')
+      opp = game.get('Opp')
+      line = game.get('AVG LINE')
+      #print(game)
+    except IndexError:
+      break
+    
+    if type(opp) != str:
+      stats_list = stats_list.drop(stats_list.index[rownum])
+      stats_list = stats_list.reset_index(drop=True)
+      rownum -= 1
+      #print(teamname)
+      
+    rownum += 1
+  
+  #create winner column
+  stats_list['Winner'] = ''
+  
+  #put it in a csv
+  stats_list.to_csv('compiled_stats_week'+weeknum+'.csv')
+
+
+def setup_matchup(compiled_stats, weeknum):
+  stats_list = compiled_stats
+  rownum = 0
+  row_start = 0
+  row_end = 1
+  team = stats_list.iloc[rownum]
+  games = pd.read_csv('games_week'+weeknum+'.csv', index_col=0)
+  final_matchups = games[['Team Name', 'Avg Line']]
+  final_matchups = final_matchups.rename(columns={'Team Name':'Away Team'})
+  final_matchups = final_matchups.rename(columns={'Avg Line':'AT'})
+  matchup = final_matchups.loc[row_start:row_end]
+  #print(final_matchups)
+
+  while matchup.empty == False:
+
+    try:
+      matchup = final_matchups.loc[row_start:row_end]
+      away_team = games.loc[row_start]
+      home_team = games.loc[row_end]
+      teamname_away = matchup.loc[row_start, 'Away Team']
+      teamname_home = matchup.loc[row_end, 'Away Team']
+      away_line = matchup.loc[row_start, 'AT']
+      home_line = matchup.loc[row_end, 'AT']
+      print('Setting up %s AT %s' % (teamname_away, teamname_home))
+    except:
+      break
+    
+    #print(final_matchups)
+    final_matchups.loc[row_start, 'Home Team'] = teamname_home
+    final_matchups.loc[row_start, 'Away Line'] = away_line
+    final_matchups.loc[row_start, 'Home Line'] = home_line
+    final_matchups = final_matchups.drop(final_matchups.index[row_end])
+    final_matchups = final_matchups.reset_index(drop=True)
+    final_matchups.loc[row_start, 'AT'] = 'AT'
+    
+    #print(final_matchups.to_string())
+    row_start += 1
+    row_end += 1
+    matchup = games.loc[row_start:row_end]
+  
+  
+  
+  matchup = final_matchups.loc[rownum]
+  while matchup.empty == False:
+    rownum_stats = 0
+    stat_line = stats_list.loc[rownum_stats]
+    
+    try:
+      matchup = final_matchups.loc[rownum]
+      away_team = matchup.get('Away Team')
+      home_team = matchup.get('Home Team')
+    except:
+      break
+
+
+    while stat_line.empty == False:
+
+      try:
+        stat_line = stats_list.loc[rownum_stats]
+        teamname_stats = stat_line.get('Teamname')
+      except:
+        break
+      #print(stat_line)
+      #print(teamname_stats)
+
+      if teamname_stats == away_team:
+        final_matchups.loc[rownum, 'AwT_W'] = stat_line.get('W')
+        final_matchups.loc[rownum, 'AwT_L'] = stat_line.get('L')
+        final_matchups.loc[rownum, 'AwT_T'] = stat_line.get('T')
+        final_matchups.loc[rownum, 'AwT_Pct'] = stat_line.get('PCT')
+        final_matchups.loc[rownum, 'AwT_HmPct'] = stat_line.get('HOME')
+        final_matchups.loc[rownum, 'AwT_AwPct'] = stat_line.get('AWAY')
+        final_matchups.loc[rownum, 'AwT_DvPct'] = stat_line.get('DIV')
+        final_matchups.loc[rownum, 'AwT_CnfPct'] = stat_line.get('CONF')
+        final_matchups.loc[rownum, 'AwT_PF'] = stat_line.get('PF')
+        final_matchups.loc[rownum, 'AwT_PA'] = stat_line.get('PA')
+        final_matchups.loc[rownum, 'AwT_PtDiff'] = stat_line.get('DIFF')
+        final_matchups.loc[rownum, 'AwT_Strk'] = stat_line.get('STRK')
+        final_matchups.loc[rownum, 'AwT_OffRk(yds)'] = stat_line.get('OFF RK (YDS)')
+        final_matchups.loc[rownum, 'AwT_OffYds/G'] = stat_line.get('OFF YDS/G')
+        final_matchups.loc[rownum, 'AwT_PF/G'] = stat_line.get('PTS FOR/G')
+        final_matchups.loc[rownum, 'AwT_DefRk(yds)'] = stat_line.get('DEF RK (YDS)')
+        final_matchups.loc[rownum, 'AwT_YdsAlwd/G'] = stat_line.get('YDS ALWD/G')
+        final_matchups.loc[rownum, 'AwT_PtsAlwd/G'] = stat_line.get('PTS ALWD/G')
+        final_matchups.loc[rownum, 'AwT_TotInj'] = stat_line.get('Total Inj')
+        final_matchups.loc[rownum, 'AwT_NonIR'] = stat_line.get('Non-IR')
+        final_matchups.loc[rownum, 'AwT_IR'] = stat_line.get('IR')
+      
+      elif teamname_stats == home_team:
+        final_matchups.loc[rownum, 'HmT_W'] = stat_line.get('W')
+        final_matchups.loc[rownum, 'HmT_L'] = stat_line.get('L')
+        final_matchups.loc[rownum, 'HmT_T'] = stat_line.get('T')
+        final_matchups.loc[rownum, 'HmT_Pct'] = stat_line.get('PCT')
+        final_matchups.loc[rownum, 'HmT_HmPct'] = stat_line.get('HOME')
+        final_matchups.loc[rownum, 'HmT_AwPct'] = stat_line.get('AWAY')
+        final_matchups.loc[rownum, 'HmT_DvPct'] = stat_line.get('DIV')
+        final_matchups.loc[rownum, 'HmT_CnfPct'] = stat_line.get('CONF')
+        final_matchups.loc[rownum, 'HmT_PF'] = stat_line.get('PF')
+        final_matchups.loc[rownum, 'HmT_PA'] = stat_line.get('PA')
+        final_matchups.loc[rownum, 'HmT_PtDiff'] = stat_line.get('DIFF')
+        final_matchups.loc[rownum, 'HmT_Strk'] = stat_line.get('STRK')
+        final_matchups.loc[rownum, 'HmT_OffRk(yds)'] = stat_line.get('OFF RK (YDS)')
+        final_matchups.loc[rownum, 'HmT_OffYds/G'] = stat_line.get('OFF YDS/G')
+        final_matchups.loc[rownum, 'HmT_PF/G'] = stat_line.get('PTS FOR/G')
+        final_matchups.loc[rownum, 'HmT_DefRk(yds)'] = stat_line.get('DEF RK (YDS)')
+        final_matchups.loc[rownum, 'HmT_YdsAlwd/G'] = stat_line.get('YDS ALWD/G')
+        final_matchups.loc[rownum, 'HmT_PtsAlwd/G'] = stat_line.get('PTS ALWD/G')
+        final_matchups.loc[rownum, 'HmT_TotInj'] = stat_line.get('Total Inj')
+        final_matchups.loc[rownum, 'HmT_NonIR'] = stat_line.get('Non-IR')
+        final_matchups.loc[rownum, 'HmT_IR'] = stat_line.get('IR')
+
+
+      rownum_stats += 1
+      
+
+
+    rownum += 1
+
+  #print(final_matchups.to_string())
+  final_matchups.to_csv('final_matchups_week'+weeknum+'.csv')
+  return final_matchups
+  
+
