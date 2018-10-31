@@ -9,7 +9,6 @@ def get_weeknum():
     try:
       weeknum = int(input('Please enter the number of the week that we\'re in:'))
       if weeknum in range(1,23):
-        print()
         break
       else:
         print('You did not enter a valid week number')
@@ -22,7 +21,8 @@ def get_weeknum():
 weeknum = get_weeknum()
 
 # get all of the stats
-stats.get_all(weeknum)
+#stats.get_all(weeknum)
 
 # build the pandas table
 compiler.build_table(weeknum)
+print('full matchup data available in "final_matchups_week%s.csv"' % (weeknum))
