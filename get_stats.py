@@ -6,20 +6,20 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-def get_all():
+def get_all(weeknum):
   print('getting stats')
   print('pulling ESPN lines')
-  get_espn_lines()
+  get_espn_lines(weeknum)
   print('pulling ESPN team stats')
-  get_espn_stats()
+  get_espn_stats(weeknum)
   print('pulling ESPN team standings')
-  get_espn_standings()
+  get_espn_standings(weeknum)
   print('pulling NFL injury data')
-  get_injuries_stats()
+  get_injuries_stats(weeknum)
   print('finished pulling data')
 
 #get the NFL lines from espn (point favorites)
-def get_espn_lines():
+def get_espn_lines(weeknum):
   url = "http://www.espn.com/nfl/lines"
   req = requests.get(url)
   soup = BeautifulSoup(req.content, 'html.parser')
@@ -140,12 +140,16 @@ def get_espn_lines():
 
         else:
           print(game)
-          sys.exit('ERROR: UNKNOWN LINE LENGTH')
+          sys.exit('ERROR: UNKNOWN AVG LINE LENGTH')
   
     #print (game.loc[:, 'Raw Line'])
   
-    team1_avg_line = team1_avg_line / count
-    team2_avg_line = team2_avg_line / count
+    if count != 0:
+      team1_avg_line = team1_avg_line / count
+      team2_avg_line = team2_avg_line / count
+    elif count == 0:
+      team1_avg_line = 'N/A'
+      team2_avg_line = 'N/A'
     #print(str(team1_avg_line)+' team1 avg')
     #print(str(team2_avg_line)+' team2 avg')
   
@@ -177,12 +181,12 @@ def get_espn_lines():
   # create dataframe and put data into csv
   df_format_lines = pd.DataFrame.from_dict(team_lines, orient='index', columns=['Avg Line'])
   #print(df_format_lines)
-  df_format_lines.to_csv('nfl_lines.csv')
+  df_format_lines.to_csv('nfl_lines_week'+weeknum+'.csv')
   return df_format_lines
 
 #get offense and defense statistics from espn
 #does not have a return, just puts data into csv's
-def get_espn_stats():
+def get_espn_stats(weeknum):
   # get the stats for offense of each team
   url_off = "http://www.espn.com/nfl/statistics/team/_/stat/total"
   req_off = requests.get(url_off)
@@ -207,7 +211,7 @@ def get_espn_stats():
     #print(item) #print it less pretty
 
   # write data to a csv file
-  with open('nfl_stats_off.csv', 'w', newline='') as csv_file:
+  with open('nfl_stats_off_week'+weeknum+'.csv', 'w', newline='') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerows(list_of_rows)
 
@@ -235,12 +239,12 @@ def get_espn_stats():
     #print(item) #print it less pretty
 
   # write data to a csv file
-  with open('nfl_stats_def.csv', 'w', newline='') as csv_file:
+  with open('nfl_stats_def_week'+weeknum+'.csv', 'w', newline='') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerows(list_of_rows)
 
 #get the current records/standings from espn
-def get_espn_standings():
+def get_espn_standings(weeknum):
 
   url = "http://www.espn.com/nfl/standings"
   req = requests.get(url)
@@ -374,11 +378,11 @@ def get_espn_standings():
   all_teams = afc_teams.append(nfc_teams)
   all_teams = all_teams.reset_index(drop=True)
 
-  all_teams.to_csv('standings.csv')
+  all_teams.to_csv('standings_week'+weeknum+'.csv')
   return all_teams
 
 #get the current injury statistics from pro-football-reference.com
-def get_injuries_stats():
+def get_injuries_stats(weeknum):
   url = "https://www.pro-football-reference.com/players/injuries.htm"
   req = requests.get(url)
   soup = BeautifulSoup(req.content, 'html.parser')
@@ -402,12 +406,12 @@ def get_injuries_stats():
       #print(item) #print it less pretty
 
   # write data to a csv file
-  with open('nfl_injuries_raw.csv', 'w', newline='') as csv_file:
+  with open('nfl_injuries_raw_week'+weeknum+'.csv', 'w', newline='') as csv_file:
     writer = csv.writer(csv_file)
     writer.writerows(list_of_rows)
 
   # read data from .csv file, put it in a dataframe
-  df_all_injured = pd.read_csv('nfl_injuries_raw.csv')
+  df_all_injured = pd.read_csv('nfl_injuries_raw_week'+weeknum+'.csv')
 
   # find only the ir players
   df_ir_players = df_all_injured[df_all_injured['Class'] == 'I-R']
@@ -510,6 +514,6 @@ def get_injuries_stats():
   #print(df_combined.to_string())
 
   # output to .csv
-  df_combined.to_csv('injuries_stats.csv')
+  df_combined.to_csv('injuries_stats_week'+weeknum+'.csv')
   return df_combined
 
