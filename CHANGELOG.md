@@ -1,17 +1,20 @@
 #### Planned Changes
-* Implement Naive Bayes algorithm
 * Continue development of Neural Network
 * Rework the file structure
 * Automate the accuracy checking process
 * Build a GUI (much later, regular app or web app?)
 * automate the webscraping and prediction tasks
 
+#### v0.4.3 - 11/1/18
+* Added Naive Bayes Classifier (GaussianNB)
+* Added K Nearest Neighbor machine learning predictions
+* Included week 9 predictions (With new classifiers included)
+
 #### v0.4.2 - 11/1/18
 * Added project to GitLab
-* Added K Nearest Neighbor machine learning predictions
 * Continued development of Neural Networks
 * Added week 8 accuracy spreadsheet
-* Included week 9 predictions
+* Created CHANGELOG.md
 
 **_(Everything past this point was before the creation of the changelog. The changes listed here are not very detailed compared to v0.4.2 and on.)_**
 
