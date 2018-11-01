@@ -11,28 +11,37 @@
 * Added K Nearest Neighbor machine learning predictions
 * Continued development of Neural Networks
 * Added week 8 accuracy spreadsheet
+* Included week 9 predictions
 
 **_(Everything past this point was before the creation of the changelog. The changes listed here are not very detailed compared to v0.4.2 and on.)_**
 
 ##### v0.4.0 - 10/26/18
 * Introduction of Nerual Networks, first time ran with actual predictions
 
+##### v0.3.1 - 10/24/18
+* Included week8 predictions
+
 ##### v0.3.0 - 10/24/18
-* Added 3 prediction algorithms
-    * Added RBF SVM, Random Forest, and XGBoost (GradientBoostClassifier in SKLearn)  
+* Added 3 prediction algorithms 
+    * Added RBF SVM, Random Forest, and XGBoost (GradientBoostClassifier in SKLearn) 
+    * Even though week7 was over, predictions were made with week 5 & 6 stats
+* Restructed the way that final_predictions was built
+    * Fixed a bug that caused the probability to appear as below 50%
 
 ##### v0.2.6 - 10/17/18
-* Introduced bug fixes to get_stats.py
+* Introduced multiple bug fixes to get_stats.py
     * Had issues with some input on websites, get_stats.py got confused  
 
 ##### v0.2.5 - N/A
-* First week of real predictions
+* Created final_predictions csv document (Week 7)
+    * First real predictions (rather than running tests on available data)
     * Predictions from 2 algorithms (Started with Logistic Regression & Linear SVM)
 
 ##### v0.2.4 - N/A
 * Introduction of final_matchups csv document
     * Allowed for muuch easier predictions (was previously prediction each game twice, once for each team)
     * Predictions can now deicde on home or away team winning
+    * Used dummy variables/OneHotEncoding to account for the home/away teams
 
 ##### v0.2.2 - N/A
 * Introduced get_winners.py
@@ -40,9 +49,13 @@
 
 ##### v0.2.1 - N/A
 * Created files with the week number attached to them so that further weeks could be added without confusion
+* Created build_table.py to get the stats and finalize table for predictions
+    * moved the get_weeknum function to build_table.py
+* I figured out what dummy variables were, later used this as "OneHotEncoding" for predictions 
 
 ##### v0.2.0 - N/A
 * Overhaul of how compiled_stats csv was made
+* Creation of get_weeknum function, placed in compile_stats.py
 
 ##### v0.1.2 - N/A
 * Creation of get_stats.py
