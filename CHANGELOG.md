@@ -1,4 +1,5 @@
 #### Planned Changes
+* Implement Naive Bayes algorithm
 * Continue development of Neural Network
 * Rework the file structure
 * Automate the accuracy checking process
