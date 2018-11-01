@@ -32,36 +32,36 @@
 * Introduced multiple bug fixes to get_stats.py
     * Had issues with some input on websites, get_stats.py got confused  
 
-##### v0.2.5 - N/A
+##### v0.2.5
 * Created final_predictions csv document (Week 7)
     * First real predictions (rather than running tests on available data)
     * Predictions from 2 algorithms (Started with Logistic Regression & Linear SVM)
 
-##### v0.2.4 - N/A
+##### v0.2.4
 * Introduction of final_matchups csv document
     * Allowed for muuch easier predictions (was previously prediction each game twice, once for each team)
     * Predictions can now deicde on home or away team winning
     * Used dummy variables/OneHotEncoding to account for the home/away teams
 
-##### v0.2.2 - N/A
+##### v0.2.2
 * Introduced get_winners.py
     * created the function to allow for input of the weeknumber across the whole program
 
-##### v0.2.1 - N/A
+##### v0.2.1
 * Created files with the week number attached to them so that further weeks could be added without confusion
 * Created build_table.py to get the stats and finalize table for predictions
     * moved the get_weeknum function to build_table.py
 * I figured out what dummy variables were, later used this as "OneHotEncoding" for predictions 
 
-##### v0.2.0 - N/A
+##### v0.2.0
 * Overhaul of how compiled_stats csv was made
 * Creation of get_weeknum function, placed in compile_stats.py
 
-##### v0.1.2 - N/A
+##### v0.1.2
 * Creation of get_stats.py
     * Took the job of 5 different scripts and put them together into 1 script 
 
-##### v0.1.1 - N/A
+##### v0.1.1
 * Created bulk of webscraping/formatting scripts
     * format_injuries.py
     * format_lines.py
@@ -69,7 +69,7 @@
     * get_espn_stats.py
     * get_injuries_stats.py
 
-##### v0.1.0 - N/A
+##### v0.1.0
 * Birth of project
 * Only had 1 script
 * Scraped statistics for team's offenses, put the data in a csv
