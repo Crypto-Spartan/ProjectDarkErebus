@@ -10,5 +10,5 @@ Welcome to ProjectDarkErebus!
 
 #### How are the predictions made?
 - I am currently pulling statistics from various sources and running them through multiple machine learning algorithms.
-- So far, I have successfully implemented Logistic Regression, Linear SVM, RBF SVM, Random Forrest,XGBoost, and K Nearest Neighbor.
-- I am working to add Neural Networks and Naive Bayes.
+- So far, I have successfully implemented Logistic Regression, Linear SVM, RBF SVM, Random Forrest,XGBoost, K Nearest Neighbor, and Gaussian Naive Bayes.
+- I am working to add Neural Networks.
