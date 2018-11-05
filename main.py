@@ -26,6 +26,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn import svm
 
+import os.path
+
 scaler = StandardScaler()
 
 week5 = pd.read_csv('final_matchups_week5.csv', index_col=0)
@@ -72,4 +74,7 @@ transformed = pca.fit_transform(x_train)
 model_nn.fit(transformed, y_train)
 plot_decision_regions(X=transformed, y=y_train.astype(np.integer).values, clf=model_nn, legend=2)
 
-plt.savefig('data.png')
+path = os.path.join('pictures', 'nn_graph.png')
+
+#plt.savefig('data.png')
+plt.savefig(path)
