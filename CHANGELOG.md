@@ -12,6 +12,8 @@
 * Added week 9 accuracy report
 * started work on web ui
 * started work on file restructure
+    * turned single digit numbers into 2 digit numbers for numerical order going into week 10
+        * (instead of week1.csv, it will read as week01.csv)
     * put files into data folder
     * added 'placeholder.txt' to show file structure for some folders
 
