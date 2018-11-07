@@ -5,6 +5,15 @@
 * Build a GUI (much later, regular app or web app?)
 * automate the webscraping and prediction tasks
 
+#### v0.4.4 - 11/7/18
+* Created separate get_winners file for added functionality
+    * modified build_table.py and get_winners.py
+* Added week 9 winners
+* Added week 9 accuracy report
+* started work on web ui
+* started work on file restructure
+    * added 'placeholder.txt' to show file structure
+
 #### v0.4.3 - 11/1/18
 * Added Naive Bayes Classifier (GaussianNB)
 * Added K Nearest Neighbor machine learning predictions
