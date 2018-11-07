@@ -3,8 +3,9 @@
 import sys
 import csv
 import pandas as pd
+import get_weeknum 
 
-weeknum = '5'
+weeknum = get_weeknum.ask_user_for_weeknum()
 
 def ask_user_for_winners(weeknum):
   count = 0
@@ -49,3 +50,5 @@ def ask_user_for_winners(weeknum):
   
   final_matchups.to_csv('final_matchups_week'+weeknum+'.csv')
   print (final_matchups[['Away Team', 'Home Team', 'Winner']].to_string())
+
+ask_user_for_winners(weeknum)
