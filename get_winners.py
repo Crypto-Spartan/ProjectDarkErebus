@@ -8,7 +8,6 @@ import get_weeknum
 weeknum = get_weeknum.ask_user_for_weeknum()
 
 def ask_user_for_winners(weeknum):
-  count = 0
   rownum = 0
   final_matchups = pd.read_csv('final_matchups_week'+weeknum+'.csv', index_col=0)
   matchup = final_matchups.loc[rownum]
