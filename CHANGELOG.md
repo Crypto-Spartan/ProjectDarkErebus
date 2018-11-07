@@ -12,7 +12,8 @@
 * Added week 9 accuracy report
 * started work on web ui
 * started work on file restructure
-    * added 'placeholder.txt' to show file structure
+    * put files into data folder
+    * added 'placeholder.txt' to show file structure for some folders
 
 #### v0.4.3 - 11/1/18
 * Added Naive Bayes Classifier (GaussianNB)
