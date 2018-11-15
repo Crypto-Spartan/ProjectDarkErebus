@@ -6,7 +6,7 @@ import get_weeknum
 weeknum = get_weeknum.ask_user_for_weeknum()
 
 # get all of the stats
-#stats.get_all(weeknum)
+stats.get_all(weeknum)
 
 # build the pandas table
 compiler.build_table(weeknum)
