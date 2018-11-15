@@ -1,14 +1,14 @@
-,Away Team,AT,Home Team,Logistic Pred,Logistic Prob,SVM Linear Pred,SVM Linear Prob,RF Pred,RF Prob,XGB Pred,XGB Prob,SVM RBF Pred,SVM RBF Prob,KNN Pred,KNN Prob,GNB Pred,GNB Prob
-0,Oakland Raiders,AT,San Francisco 49ers,Away,80.74034014278236,Away,58.60308011560906,Home,80.0,Home,99.36055278027911,Away,59.59667394430369,Home,80.0,Away,100.0
-1,Chicago Bears,AT,Buffalo Bills,Away,99.95091280754129,Away,54.92621974003422,Away,80.0,Away,84.5440076791995,Away,59.59667394430369,Away,80.0,Home,100.0
-2,Tampa Bay Buccaneers,AT,Carolina Panthers,Home,98.57794226681662,Home,64.49085999719514,Home,80.0,Home,99.93962060427594,Home,59.59667394430369,Away,60.0,Home,100.0
-3,Kansas City Chiefs,AT,Cleveland Browns,Away,99.99999654554811,Away,57.632856144600964,Away,80.0,Away,70.59403714148577,Away,59.59667394430369,Away,60.0,Home,100.0
-4,New York Jets,AT,Miami Dolphins,Away,92.79497203551978,Away,59.91902616910678,Home,70.0,Away,84.87728035160491,Away,59.59667394430369,Away,60.0,Home,100.0
-5,Pittsburgh Steelers,AT,Baltimore Ravens,Away,99.85991313773971,Away,53.049350018754815,Away,80.0,Away,98.47178193266261,Away,59.59667394430369,Away,60.0,Away,100.0
-6,Detroit Lions,AT,Minnesota Vikings,Away,60.51624629058705,Away,60.31044658004019,Home,80.0,Away,92.69691876609731,Away,59.59667394430369,Home,60.0,Away,100.0
-7,Atlanta Falcons,AT,Washington Redskins,Away,99.0382361750899,Away,52.50245530733206,Away,50.0,Home,99.78242093690503,Away,59.59667394430369,Away,60.0,Home,100.0
-8,Houston Texans,AT,Denver Broncos,Away,98.46398803793437,Away,58.73888961415539,Away,60.0,Away,98.43044639073317,Away,59.59667394430369,Away,80.0,Away,100.0
-9,Los Angeles Chargers,AT,Seattle Seahawks,Away,88.93678539124359,Away,57.62167288441579,Away,90.0,Away,62.59241834931015,Away,59.59667394430369,Away,80.0,Away,100.0
-10,Los Angeles Rams,AT,New Orleans Saints,Home,64.00607291115776,Home,63.36497990473082,Away,90.0,Away,96.86485025681127,Home,59.59667394430369,Home,60.0,Away,100.0
-11,Green Bay Packers,AT,New England Patriots,Home,59.92583981393077,Home,63.071632144106346,Home,80.0,Home,93.88491978942206,Home,59.59667394430369,Home,60.0,Home,100.0
-12,Tennessee Titans,AT,Dallas Cowboys,Home,92.63282926898248,Home,64.47926045096717,Home,70.0,Home,99.91576081581238,Home,59.59667394430369,Home,60.0,Home,100.0
+,Away Team,AT,Home Team,Logistic Pred,Logistic Prob,SVM Linear Pred,SVM Linear Prob,RF Pred,RF Prob,XGB Pred,XGB Prob,KNN Pred,KNN Prob,GNB Pred,GNB Prob
+0,Oakland Raiders,AT,San Francisco 49ers,Away,80.74034014,Away,58.60308012,Home,80,Home,99.36055278,Home,80,Away,100
+1,Chicago Bears,AT,Buffalo Bills,Away,99.95091281,Away,54.92621974,Away,80,Away,84.54400768,Away,80,Home,100
+2,Tampa Bay Buccaneers,AT,Carolina Panthers,Home,98.57794227,Home,64.49086,Home,80,Home,99.9396206,Away,60,Home,100
+3,Kansas City Chiefs,AT,Cleveland Browns,Away,99.99999655,Away,57.63285614,Away,80,Away,70.59403714,Away,60,Home,100
+4,New York Jets,AT,Miami Dolphins,Away,92.79497204,Away,59.91902617,Home,70,Away,84.87728035,Away,60,Home,100
+5,Pittsburgh Steelers,AT,Baltimore Ravens,Away,99.85991314,Away,53.04935002,Away,80,Away,98.47178193,Away,60,Away,100
+6,Detroit Lions,AT,Minnesota Vikings,Away,60.51624629,Away,60.31044658,Home,80,Away,92.69691877,Home,60,Away,100
+7,Atlanta Falcons,AT,Washington Redskins,Away,99.03823618,Away,52.50245531,Away,50,Home,99.78242094,Away,60,Home,100
+8,Houston Texans,AT,Denver Broncos,Away,98.46398804,Away,58.73888961,Away,60,Away,98.43044639,Away,80,Away,100
+9,Los Angeles Chargers,AT,Seattle Seahawks,Away,88.93678539,Away,57.62167288,Away,90,Away,62.59241835,Away,80,Away,100
+10,Los Angeles Rams,AT,New Orleans Saints,Home,64.00607291,Home,63.3649799,Away,90,Away,96.86485026,Home,60,Away,100
+11,Green Bay Packers,AT,New England Patriots,Home,59.92583981,Home,63.07163214,Home,80,Home,93.88491979,Home,60,Home,100
+12,Tennessee Titans,AT,Dallas Cowboys,Home,92.63282927,Home,64.47926045,Home,70,Home,99.91576082,Home,60,Home,100

@@ -5,6 +5,14 @@
 * Build a GUI (much later, regular app or web app?)
 * automate the webscraping and prediction tasks
 
+#### v0.4.5 - 11/15/18
+* **Found mistake in machine_learning.py, all SVM RBF predictions before week 11 are inaccurate, will take out all SVM RBF predictions from previous csv and Accuracy files (week 8-10)**
+    * also fixed 'Majority Acc' in the Accuracy files
+* Consider RBF SVM added on week 11's predictions
+* Fixed a bug causing empty space to be displayed for their rank when 2 teams had the same yardage (offensive and defensive)
+* added week 11 predictions
+* added week 10 accuracy report
+
 #### v0.4.4 - 11/7/18
 * Created separate get_winners file for added functionality
     * modified build_table.py and get_winners.py
