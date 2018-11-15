@@ -225,11 +225,21 @@ def get_espn_stats(weeknum):
   #for item in list_of_rows:
     #print(' '.join(item)) #print it pretty
     #print(item) #print it less pretty
+  
+  off_headers = list_of_rows[0]
+  df_offense_stats = pd.DataFrame(list_of_rows, columns=off_headers)
+  df_offense_stats = df_offense_stats.drop(0)
+  
+  iterrow_count = 1
+  for index, row in df_offense_stats.iterrows():
+    test_empty_string = str(row['RK']).replace(u'\xa0', u' ')
+    if test_empty_string == ' ' and iterrow_count > 1:
+      df_offense_stats.loc[iterrow_count, 'RK'] = iterrow_count-1
+    iterrow_count += 1
 
-  # write data to a csv file
-  with open('nfl_stats_off_week'+weeknum+'.csv', 'w', newline='') as csv_file:
-    writer = csv.writer(csv_file)
-    writer.writerows(list_of_rows)
+  df_offense_stats = df_offense_stats.set_index('RK')
+  df_offense_stats.to_csv('nfl_stats_off_week'+weeknum+'.csv')
+
 
   # get the stats for defense of each team
   url_def = "http://www.espn.com/nfl/statistics/team/_/stat/total/position/defense"
@@ -254,10 +264,19 @@ def get_espn_stats(weeknum):
     #print(' '.join(item)) #print it pretty
     #print(item) #print it less pretty
 
-  # write data to a csv file
-  with open('nfl_stats_def_week'+weeknum+'.csv', 'w', newline='') as csv_file:
-    writer = csv.writer(csv_file)
-    writer.writerows(list_of_rows)
+  def_headers = list_of_rows[0]
+  df_defense_stats = pd.DataFrame(list_of_rows, columns=off_headers)
+  df_defense_stats = df_defense_stats.drop(0)
+  
+  iterrow_count = 1
+  for index, row in df_defense_stats.iterrows():
+    test_empty_string = str(row['RK']).replace(u'\xa0', u' ')
+    if test_empty_string == ' ' and iterrow_count > 1:
+      df_defense_stats.loc[iterrow_count, 'RK'] = iterrow_count-1
+    iterrow_count += 1
+  
+  df_defense_stats = df_defense_stats.set_index('RK')
+  df_defense_stats.to_csv('nfl_stats_def_week'+weeknum+'.csv')
 
 #get the current records/standings from espn
 def get_espn_standings(weeknum):
@@ -532,4 +551,3 @@ def get_injuries_stats(weeknum):
   # output to .csv
   df_combined.to_csv('injuries_stats_week'+weeknum+'.csv')
   return df_combined
-
