@@ -501,6 +501,7 @@ def setup_matchup(compiled_stats, weeknum):
 
     rownum += 1
     
+  final_matchups['Winner'] = ''
 
   #print(final_matchups.to_string())
   final_matchups.to_csv('final_matchups_week'+weeknum+'.csv')
