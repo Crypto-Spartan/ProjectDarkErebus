@@ -6,7 +6,7 @@
 * automate the webscraping and prediction tasks
 
 #### v0.4.5 - 11/15/18
-* **Found mistake in machine_learning.py, all SVM RBF predictions before week 11 are inaccurate, will take out all SVM RBF predictions from previous csv and Accuracy files (week 8-10)**
+* **Found mistake in machine_learning.py, all SVM RBF predictions before week 11 are inaccurate, will take out all SVM RBF predictions from previous csv and Accuracy files (week 7-10)**
     * also fixed 'Majority Acc' in the Accuracy files
 * Consider RBF SVM added on week 11's predictions
 * Fixed a bug causing empty space to be displayed for their rank when 2 teams had the same yardage (offensive and defensive)
