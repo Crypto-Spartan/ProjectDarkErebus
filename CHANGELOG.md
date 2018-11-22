@@ -1,9 +1,14 @@
 #### Planned Changes
 * Continue development of Neural Network
-* Rework the file structure
+* Rework the file structure (folders for each week instead of data type)
 * Automate the accuracy checking process
-* Build a GUI (much later, regular app or web app?)
-* automate the webscraping and prediction tasks
+* Build a GUI (web app)
+* automate the webscraping and prediction tasks (should come when webapp is built)
+
+#### v0.4.6 - 11/21/18
+* Added week 12 predictions
+* Moved files into data folder for cleanup
+* Slightly modified changelog's 'planned changes'
 
 #### v0.4.5 - 11/15/18
 * **Found mistake in machine_learning.py, all SVM RBF predictions before week 11 are inaccurate, will take out all SVM RBF predictions from previous csv and Accuracy files (week 7-10)**
