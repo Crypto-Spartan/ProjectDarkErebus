@@ -10,6 +10,9 @@
         * Keep a record for each of the bots for fans to follow
 * automate the webscraping and prediction tasks (should come when webapp is built)
 
+#### v0.4.7 - 06/19/19
+* Added data up to week 15 from last season to the remote repo
+
 #### v0.4.6.1 - 06/19/19
 * Re-evaluating project for upcoming season
 * Added new neural_net_visualized.py script, imported from the old repl.it project
