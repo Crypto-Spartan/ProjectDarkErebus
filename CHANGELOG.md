@@ -111,7 +111,7 @@
     * get_injuries_stats.py
 
 ##### v0.1.0
-* Birth of project uner codename ProjectDarkErebus
+* Birth of project under codename ProjectDarkErebus
 * Only had 1 script
 * Scraped statistics for team's offenses, put the data in a csv
     
