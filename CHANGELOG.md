@@ -3,7 +3,20 @@
 * Rework the file structure (folders for each week instead of data type)
 * Automate the accuracy checking process
 * Build a GUI (web app)
+    * Run python scripts that periodically update a website
+    * Figure out where/best way to host the website
+    * Website will launch v1.0.0
+    * Each algorithm will be a named "bot" for competition among bots
+        * Keep a record for each of the bots for fans to follow
 * automate the webscraping and prediction tasks (should come when webapp is built)
+
+#### v0.4.6.1 - 06/19/19
+* Re-evaluating project for upcoming season
+* Added new neural_net_visualized.py script, imported from the old repl.it project
+    * Evaluating when neural net visualization was built in, looking to add visualization for other algorithms if possible
+* Slight changes to changelog disclaimer about changes prior to v0.4.2
+* Slightly modified changelog's 'planned changes'
+* Fix typos in changelog 
 
 #### v0.4.6 - 11/21/18
 * Added week 12 predictions
@@ -36,18 +49,18 @@
 * Included week 9 predictions (With new classifiers included)
 
 #### v0.4.2 - 11/1/18
-* Added project to GitLab
+* Added project to GitLab, imported from repl.it
 * Continued development of Neural Networks
 * Added week 8 accuracy spreadsheet
 * Created CHANGELOG.md
 
-**_(Everything past this point was before the creation of the changelog. The changes listed here are not very detailed compared to v0.4.2 and on.)_**
+**_(Everything prior to v0.4.2 was before the creation of the changelog. The changes listed here are not as detailed as later revisions.)_**
 
 ##### v0.4.0 - 10/26/18
 * Introduction of Nerual Networks, first time ran with actual predictions
 
 ##### v0.3.1 - 10/24/18
-* Included week8 predictions
+* Included week 8 predictions
 
 ##### v0.3.0 - 10/24/18
 * Added 3 prediction algorithms 
@@ -67,7 +80,7 @@
 
 ##### v0.2.4
 * Introduction of final_matchups csv document
-    * Allowed for muuch easier predictions (was previously prediction each game twice, once for each team)
+    * Allowed for much easier predictions (was previously prediction each game twice, once for each team)
     * Predictions can now deicde on home or away team winning
     * Used dummy variables/OneHotEncoding to account for the home/away teams
 
@@ -98,7 +111,7 @@
     * get_injuries_stats.py
 
 ##### v0.1.0
-* Birth of project
+* Birth of project uner codename ProjectDarkErebus
 * Only had 1 script
 * Scraped statistics for team's offenses, put the data in a csv
     
