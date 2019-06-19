@@ -31,7 +31,6 @@ week5 = pd.read_csv('final_matchups_week5.csv', index_col=0)
 week6 = pd.read_csv('final_matchups_week6.csv', index_col=0)
 week7 = pd.read_csv('final_matchups_week7.csv', index_col=0)
 week8 = pd.read_csv('final_matchups_week8.csv', index_col=0)
-#print(week8)
 
 matchup_data = pd.concat([week5, week6, week7, week8])
 matchup_data = matchup_data.reset_index()
