@@ -1,0 +1,160 @@
+{% extends "homepage-layout.html" %}
+
+
+{% block bodycontent %}
+  <!-- Page Content -->
+
+  <!-- Jumbotron Header -->
+  <header class="bg-primary text-white">
+  <div class="container text-center">
+    <h1>Predictions</h1>
+    <p class="lead">Here are our predictions, separated by bot.</p>
+  </div>
+  </header>
+
+  <!-- Page Features -->
+  <div class="container-fluid">
+    <div class="row text-center mt-5">
+      <div class="col-lg-4 col-md-6 mb-5">
+        <h3>Logistic Regression Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>  
+          <tbody>
+            {% for pred in log_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+          
+        </table>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-5">
+        <h3>Random Forrest Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pred in rf_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-5">
+        <h3>XGBoost Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for pred in xgb_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>      
+
+    </div>
+    <!-- /.row -->
+
+  <div class="row text-center mt-3">
+    <div class="col-lg-4 col-md-6 mb-5">
+        <h3>Linear SVM Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>  
+          <tbody>
+            {% for pred in svm_lin_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>          
+        </table>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-5">
+        <h3>RBF SVM Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>  
+          <tbody>
+            {% for pred in svm_rbf_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>          
+        </table>
+      </div>
+
+<!--      <div class="col-lg-4 col-md-6 mb-5">
+        <h3>RBF SVM Predictions</h3>
+        <table class="table table-sm table-hover table-striped">
+          <thead class='thead-dark'>
+            <tr>
+              <th scope="col">Game</th>
+              <th scope="col">Prediction</th>
+              <th scope="col">Probability</th>
+            </tr>
+          </thead>  
+          <tbody>
+            {% for pred in svm_rbf_predictions %}
+              <tr>
+                <td scope='row'> {{ pred.Game }}</td>
+                <td> {{ pred.Prediction }}</td>
+                <td> {{ pred.Probability }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+-->
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
+{% endblock %}

@@ -1,0 +1,53 @@
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  {% if title %}
+    <title>Football Predictor - {{  title  }}</title>
+  {% else %}
+    <title>Football Predictor</title>
+  {% endif %}
+
+  {% block customcss %}{% endblock %}
+
+</head>
+
+<body>
+
+<!-- <table>
+    {% for row in pred_for_chart %}
+    <tr>
+        
+        <td>{{ row }}</td>
+        
+    </tr>
+    {% endfor %}
+</table> -->
+
+  <h3>Logistic Regression Predictions</h3>
+    <table class="table table-sm table-hover table-striped">
+      
+      <tbody>
+        {% for pred in pred_for_chart %}
+          
+          <tr>
+            <td scope='row'> {{ pred.Game }}</td>
+            <td> {{ pred.Log_Pred }}</td>
+            <td> {{ pred.Log_Prob }}</td>
+          </tr>
+          
+        {% endfor %}
+        
+      </tbody>
+      
+    </table>
+
+
+
+</body>
