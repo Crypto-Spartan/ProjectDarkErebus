@@ -11,8 +11,8 @@ def get_all(weeknum):
   print('getting stats')
   print('pulling ESPN lines')
   get_espn_lines(weeknum)
-  print('pulling ESPN team stats')
-  get_espn_stats(weeknum)
+  #print('pulling ESPN team stats')
+  #get_espn_stats(weeknum)
   print('pulling ESPN team standings')
   get_espn_standings(weeknum)
   print('pulling NFL injury data')
@@ -463,7 +463,7 @@ def get_injuries_stats(weeknum):
   df_partial_combined = pd.merge(left=df_count_all,right=df_count_non_ir, on=['Tm'], how='outer')
   df_combined = pd.merge(left=df_partial_combined,right=df_count_ir, on=['Tm'], how='outer')
   df_combined = df_combined.rename(index=str, columns={"Tm": "Team"})
-
+  print(df_combined)
   rownum = 0
   team = df_combined.iloc[rownum]
 
