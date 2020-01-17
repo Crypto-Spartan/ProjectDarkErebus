@@ -1,0 +1,15 @@
+,Away Team,AT,Home Team,Logistic Pred,Logistic Prob,SVM Linear Pred,SVM Linear Prob,RF Pred,RF Prob,XGB Pred,XGB Prob
+0,Denver Broncos,AT,Arizona Cardinals,Away,99.99825304,Away,58.83099794,Away,50,Home,98.06041377
+1,Tennessee Titans,AT,Los Angeles Chargers,Away,71.0861699,Away,67.79920241,Home,90,Home,99.94402825
+2,Cleveland Browns,AT,Tampa Bay Buccaneers,Away,99.99998093,Away,63.26852655,Home,60,Away,84.57773475
+3,Carolina Panthers,AT,Philadelphia Eagles,Home,97.89538814,Home,72.01597274,Home,70,Home,99.01813393
+4,Minnesota Vikings,AT,New York Jets,Away,99.99898924,Away,59.26548297,Home,60,Away,99.77558995
+5,Detroit Lions,AT,Miami Dolphins,Away,73.39699125,Away,68.60194786,Home,70,Home,99.72539106
+6,New England Patriots,AT,Chicago Bears,Away,99.99999941,Away,54.86024871,Home,80,Away,90.05110058
+7,Buffalo Bills,AT,Indianapolis Colts,Away,98.84208452,Away,61.63159771,Home,70,Home,99.88451512
+8,Houston Texans,AT,Jacksonville Jaguars,Away,98.98451759,Away,62.94189063,Home,70,Away,96.62328668
+9,New Orleans Saints,AT,Baltimore Ravens,Home,99.89720823,Home,69.90074723,Away,70,Away,98.23102434
+10,Dallas Cowboys,AT,Washington Redskins,Away,99.9870804,Away,62.19344406,Home,80,Home,99.80944264
+11,Los Angeles Rams,AT,San Francisco 49ers,Away,99.99608667,Away,61.62829944,Home,60,Away,98.24222428
+12,Cincinnati Bengals,AT,Kansas City Chiefs,Away,99.99925983,Away,61.19346287,Home,70,Away,84.63234005
+13,New York Giants,AT,Atlanta Falcons,Away,99.50558848,Away,64.73748322,Home,100,Home,99.94402825

@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block bodycontent %}
+   <!-- Jumbotron Header -->
+  <header class="text-white">
+  <div class="container text-center">
+    {% if archive %}
+    <h1>Predictions Archive - Week {{ weeknum }}, {{ year }}</h1>
+    {% else %}
+    <h1>Predictions - Week {{ weeknum }}, {{ year }}</h1>
+    {% endif %}
+    <p class="lead">Here are our predictions, separated by bot.</p>
+    <p class="text-muted"><i>Click <a class="muted-link" href=/predictions-archive>here</a> for our archive.</i></p>
+  </div>
+  </header>
+
+  <!-- Page Features -->
+  <div class="container-fluid">
+    <div class="row text-center mt-3 d-flex justify-content-center">
+      {% for chart in prediction_list %}
+        <div class="col-lg-4 col-md-6 mb-5">
+          <h3>{{ chart.Name }}</h3>
+          <table class="table table-sm table-hover table-striped">
+            <thead class='thead-dark'>
+              <tr>
+                <th scope="col" class="text-left">Game</th>
+                <th scope="col">Prediction</th>
+                {% if chart.Name != "Gaussian Naive Bayes Predictions" %}
+                <th scope="col">Probability</th>
+                {% endif %}
+              </tr>
+            </thead>  
+            <tbody>
+              {% for pred in chart.Algorithm %}
+              <tr>
+                <td scope='row' class="text-left">{{ pred.Game }}</td>
+              {% if pred.Prediction in game_outcomes['Winners'] %}
+                <td class="bg-success text-white">{{ pred.Prediction }}</td>
+              {% elif pred.Prediction in game_outcomes['Losers'] %}
+                <td class="bg-danger text-white">{{ pred.Prediction }}</td>
+              {% else %}
+                <td>{{ pred.Prediction }}</td>
+              {% endif %}
+                {% if chart.Name != "Gaussian Naive Bayes Predictions" %}
+                <td>{{ pred.Probability }}</td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+            </tbody>        
+          </table>
+        </div>
+      {% endfor %}
+    </div>
+    <!-- /.row -->
+    
+  </div>
+  <!-- /.container -->
+{% endblock %}

@@ -27,8 +27,8 @@ def compile_off_def_inj(weeknum):
   lines = pd.read_csv('nfl_lines_week'+weeknum+'.csv')
   lines.rename(columns={'Unnamed: 0':'Team Name'}, inplace=True)
   team = lines.iloc[rownum]
-  df_off_stats = pd.read_csv('nfl_stats_off_week'+weeknum+'.csv')
-  df_def_stats = pd.read_csv('nfl_stats_def_week'+weeknum+'.csv')
+  #df_off_stats = pd.read_csv('nfl_stats_off_week'+weeknum+'.csv')
+  #df_def_stats = pd.read_csv('nfl_stats_def_week'+weeknum+'.csv')
   df_injury_stats = pd.read_csv('injuries_stats_week'+weeknum+'.csv', index_col=0)
 
   try:
@@ -40,7 +40,7 @@ def compile_off_def_inj(weeknum):
         teamname_line = team.get('Team Name')
       except IndexError:
         break
-
+      '''
       iterrow_count = 0
       for index, row in df_off_stats.iterrows():
         #print (row['RK'], row['TEAM'], row['YDS/G'], row['PTS/G'])
@@ -79,7 +79,7 @@ def compile_off_def_inj(weeknum):
           lines.loc[rownum, 'POINTS ALWD'] = teamdefptsg
 
         iterrow_count += 1
-
+      '''
       if rownum % 2 == 1:
         lines.loc[rownum, 'H/A'] = 1
       elif rownum % 2 == 0:
@@ -202,12 +202,14 @@ def compile_w_standings(team_stats, weeknum):
     
       teamname = str(row['Team Name'])
       avg_line = str(row['Avg Line'])
+      '''
       off_rk = str(row['OFF RK (YDS)'])
       off_yds = str(row['OFF YDS/G'])
       pf = str(row['POINTS FOR'])
       def_rk = str(row['DEF RK (YDS)'])
       def_yds = str(row['DEF YDS/G'])
       pa = str(row['POINTS ALWD'])
+      '''
       h_a = str(row['H/A'])
       inj = str(row['Total Injured'])
       non_ir = str(row['Non-IR'])
@@ -221,12 +223,14 @@ def compile_w_standings(team_stats, weeknum):
         #print(teamname)
         #print(teamname_standings,' ***')
         standings.loc[rownum, 'AVG LINE'] = avg_line
+        '''
         standings.loc[rownum, 'OFF RK (YDS)'] = off_rk
         standings.loc[rownum, 'OFF YDS/G'] = off_yds
         standings.loc[rownum, 'PTS FOR/G'] = pf
         standings.loc[rownum, 'DEF RK (YDS)'] = def_rk
         standings.loc[rownum, 'YDS ALWD/G'] = def_yds
         standings.loc[rownum, 'PTS ALWD/G'] = pa
+        '''
         standings.loc[rownum, 'H/A'] = h_a
         standings.loc[rownum, 'Total Inj'] = inj
         standings.loc[rownum, 'Non-IR'] = non_ir
@@ -430,6 +434,7 @@ def setup_matchup(compiled_stats, weeknum):
         final_matchups.loc[rownum, 'AwT_AwPct'] = stat_line.get('AWAY')
         final_matchups.loc[rownum, 'AwT_DvPct'] = stat_line.get('DIV')
         final_matchups.loc[rownum, 'AwT_CnfPct'] = stat_line.get('CONF')
+        '''
         final_matchups.loc[rownum, 'AwT_PF'] = stat_line.get('PF')
         final_matchups.loc[rownum, 'AwT_PA'] = stat_line.get('PA')
         final_matchups.loc[rownum, 'AwT_PtDiff'] = stat_line.get('DIFF')
@@ -440,6 +445,7 @@ def setup_matchup(compiled_stats, weeknum):
         final_matchups.loc[rownum, 'AwT_DefRk(yds)'] = stat_line.get('DEF RK (YDS)')
         final_matchups.loc[rownum, 'AwT_YdsAlwd/G'] = stat_line.get('YDS ALWD/G')
         final_matchups.loc[rownum, 'AwT_PtsAlwd/G'] = stat_line.get('PTS ALWD/G')
+        '''
         final_matchups.loc[rownum, 'AwT_TotInj'] = stat_line.get('Total Inj')
         final_matchups.loc[rownum, 'AwT_NonIR'] = stat_line.get('Non-IR')
         final_matchups.loc[rownum, 'AwT_IR'] = stat_line.get('IR')
@@ -466,6 +472,7 @@ def setup_matchup(compiled_stats, weeknum):
         final_matchups.loc[rownum, 'HmT_AwPct'] = stat_line.get('AWAY')
         final_matchups.loc[rownum, 'HmT_DvPct'] = stat_line.get('DIV')
         final_matchups.loc[rownum, 'HmT_CnfPct'] = stat_line.get('CONF')
+        '''
         final_matchups.loc[rownum, 'HmT_PF'] = stat_line.get('PF')
         final_matchups.loc[rownum, 'HmT_PA'] = stat_line.get('PA')
         final_matchups.loc[rownum, 'HmT_PtDiff'] = stat_line.get('DIFF')
@@ -476,6 +483,7 @@ def setup_matchup(compiled_stats, weeknum):
         final_matchups.loc[rownum, 'HmT_DefRk(yds)'] = stat_line.get('DEF RK (YDS)')
         final_matchups.loc[rownum, 'HmT_YdsAlwd/G'] = stat_line.get('YDS ALWD/G')
         final_matchups.loc[rownum, 'HmT_PtsAlwd/G'] = stat_line.get('PTS ALWD/G')
+        '''
         final_matchups.loc[rownum, 'HmT_TotInj'] = stat_line.get('Total Inj')
         final_matchups.loc[rownum, 'HmT_NonIR'] = stat_line.get('Non-IR')
         final_matchups.loc[rownum, 'HmT_IR'] = stat_line.get('IR')

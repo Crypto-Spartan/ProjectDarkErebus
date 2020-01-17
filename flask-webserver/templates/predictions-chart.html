@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block bodycontent %}
+  
+  <!-- Jumbotron Header -->
+  <header class="text-white">
+  <div class="container text-center">
+    {% if archive %}
+    <h1>Predictions Chart Archive - Week {{ weeknum }}, {{ year }}</h1>
+    {% else %}
+    <h1>Predictions Chart - Week {{ weeknum }}, {{ year }}</h1>
+    {% endif %}
+    <p class="lead">Full table of predictions.</p>
+    <p class="text-muted"><i>Click <a class="muted-link" href=/predictions-archive>here</a> for our archive.</i></p>
+  </div>
+  </header>
+
+  <div class='container-fluid'>
+    <div class='row mt-2'>  
+      <div class='col-sm-12 table-responsive'>
+        <table class="table table-sm table-hover table-striped">
+          
+          <thead class='thead-dark'>
+            <tr>
+              <th scope='col'>Game</td>
+
+              {% if pred_for_chart[0].Log_Prob|length > 0 %}
+              <th class="text-center" scope='col'>Logistic Regression</td>
+              {% endif %}
+              {% if pred_for_chart[0].RF_Pred|length > 0 %}
+              <th class="text-center" scope='col'>Random Forrest</td>
+              {% endif %}
+              {% if pred_for_chart[0].XGB_Pred|length > 0 %}
+              <th class="text-center" scope='col'>XGBoost</td>
+              {% endif %}
+              {% if pred_for_chart[0].SVM_Lin_Pred|length > 0 %}
+              <th class="text-center" scope='col'>SVM Linear</td>
+              {% endif %}
+              {% if pred_for_chart[0].SVM_RBF_Pred|length > 0 %}
+              <th class="text-center" scope='col'>SVM RBF</td>
+              {% endif %}
+              {% if pred_for_chart[0].KNN_Pred|length > 0 %}
+              <th class="text-center" scope='col'>K-Nearest-Neighbor</td>
+              {% endif %}
+              {% if pred_for_chart[0].GNB_Pred|length > 0 %}
+              <th class="text-center" scope='col'>Gaussian Naive Bayes</td>
+              {% endif %}
+              <th class="text-center" scope='col'>Majority</td>                          
+            </tr>
+          </thead>
+                    
+          <tbody>
+            {% for pred in pred_for_chart %}
+              
+              <tr>
+                <td scope='row'>{{ pred.Game }}</td>
+                {% if pred.Log_Pred|length > 0 %}
+                  {% if pred.Log_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.Log_Pred }} - {{ pred.Log_Prob }}</td>
+                  {% elif pred.Log_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.Log_Pred }} - {{ pred.Log_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.Log_Pred }} - {{ pred.Log_Prob }}</td>
+                  {% endif %}
+                {% endif %}
+                {% if pred.RF_Pred|length > 0 %}                  
+                  {% if pred.RF_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.RF_Pred }} - {{ pred.RF_Prob }}</td>
+                  {% elif pred.RF_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.RF_Pred }} - {{ pred.RF_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.RF_Pred }} - {{ pred.RF_Prob }}</td>
+                  {% endif %}
+                {% endif %}
+                {% if pred.XGB_Pred|length > 0 %}                  
+                  {% if pred.XGB_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.XGB_Pred }} - {{ pred.XGB_Prob }}</td>
+                  {% elif pred.XGB_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.XGB_Pred }} - {{ pred.XGB_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.XGB_Pred }} - {{ pred.XGB_Prob }}</td>
+                  {% endif %}
+                {% endif %}
+                {% if pred.SVM_Lin_Pred|length > 0 %}                
+                  {% if pred.SVM_Lin_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.SVM_Lin_Pred }} - {{ pred.SVM_Lin_Prob }}</td>
+                  {% elif pred.SVM_Lin_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.SVM_Lin_Pred }} - {{ pred.SVM_Lin_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.SVM_Lin_Pred }} - {{ pred.SVM_Lin_Prob }}</td>
+                  {% endif %}
+                {% endif %}
+                {% if pred.SVM_RBF_Pred|length > 0 %}                
+                  {% if pred.SVM_RBF_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.SVM_RBF_Pred }} - {{ pred.SVM_RBF_Prob }}</td>
+                  {% elif pred.SVM_RBF_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.SVM_RBF_Pred }} - {{ pred.SVM_RBF_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.SVM_RBF_Pred }} - {{ pred.SVM_RBF_Prob }}</td>
+                  {% endif %}
+                {% endif %}
+                {% if pred.KNN_Pred|length > 0 %}
+                  {% if pred.KNN_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.KNN_Pred }} - {{ pred.KNN_Prob }}</td>
+                  {% elif pred.KNN_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.KNN_Pred }} - {{ pred.KNN_Prob }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.KNN_Pred }} - {{ pred.KNN_Prob }}</td>
+                  {% endif %}                
+                {% endif %}
+                {% if pred.GNB_Pred|length > 0 %}
+                  {% if pred.GNB_Pred in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white">{{ pred.GNB_Pred }}</td>
+                  {% elif pred.GNB_Pred in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white">{{ pred.GNB_Pred }}</td>
+                  {% else %}
+                  <td class="text-center">{{ pred.GNB_Pred }}</td>
+                  {% endif %}                
+                {% endif %}
+                {% if pred.Majority == 'N/A' %}
+                <td class="text-center text-muted">{{ pred.Majority }}</td>
+                {% else %}
+                  {% if pred.Majority in game_outcomes['Winners'] %}
+                  <td class="bg-success text-center text-white"><strong>{{ pred.Majority }}</strong></td>
+                  {% elif pred.Majority in game_outcomes['Losers'] %}
+                  <td class="bg-danger text-center text-white"><strong>{{ pred.Majority }}</strong></td>
+                  {% else %}
+                  <td class="text-center"><strong>{{ pred.Majority }}</strong></td>
+                  {% endif %}                
+                {% endif %}
+              </tr>
+              
+            {% endfor %}
+            
+          </tbody>
+          
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
