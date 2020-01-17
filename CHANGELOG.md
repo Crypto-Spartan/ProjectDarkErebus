@@ -1,14 +1,11 @@
 #### Planned Changes
 * Continue development of Neural Network
 * Rework the file structure (folders for each week instead of data type)
-* Automate the accuracy checking process
-* Build a GUI (web app)
+* Automate the accuracy checking process (website portion working)
+* Website
     * Run python scripts that periodically update a website
     * Figure out where/best way to host the website
-    * Website will launch v1.0.0
-    * Each algorithm will be a named "bot" for competition among bots
-        * Keep a record for each of the bots for fans to follow
-* automate the webscraping and prediction tasks (should come when webapp is built)
+* automate the webscraping and prediction tasks
 
 #### v0.5.0 - 16 Jan 20 
 ##### ***Major Update***
