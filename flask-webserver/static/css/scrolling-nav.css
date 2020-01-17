@@ -10,3 +10,7 @@ header {
 section {
   padding: 150px 0;
 }
+
+header.text-white {
+  background-color: #00C851
+}
