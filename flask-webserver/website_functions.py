@@ -9,9 +9,6 @@ from bs4 import BeautifulSoup
 current_weeknum = '12'
 current_year = '2018'
 
-
-
-
 def teamname_to_abbreviation(teamname):
   
   if teamname == 'New England Patriots':
@@ -85,7 +82,6 @@ def teamname_to_abbreviation(teamname):
 
 
 
-
 def pred_to_abbreviation(teams, location):
   teams = teams.split(' @ ')
 
@@ -114,7 +110,6 @@ def pull_data_for_outcome(weeknum=None, year=None):
   games_tables = soup.findAll('table', class_='teams')
 
   return games_tables
-
 
 
 
@@ -149,7 +144,6 @@ def check_game_outcome(weeknum=None, year=None):
 
   return winners_losers_dict
   
-
 
 
 def check_archive_folder():
@@ -191,7 +185,6 @@ def check_archive_folder():
 
   archive_list.sort(key=itemgetter('year'), reverse=True)
   return(archive_list)
-
 
 
 
@@ -286,7 +279,6 @@ def create_pred_tables(weeknum=None, year=None):
 
 
 
-
 def create_full_chart(weeknum=None, year=None):
   global current_weeknum
   global current_year
@@ -371,9 +363,9 @@ def create_full_chart(weeknum=None, year=None):
     except:
       pass
 
-    
-    # ann_pred = row['ANN Pred']
-    # ann_prob = str(round(row['ANN Prob'], 2))+'%'  
+    # for whenever i build the neural network 
+    #ann_pred = row['ANN Pred']
+    #ann_prob = str(round(row['ANN Prob'], 2))+'%'  
 
     try:  
       majority = mode(majority_list)

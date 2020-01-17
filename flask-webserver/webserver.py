@@ -2,21 +2,17 @@ from flask import Flask, render_template, url_for
 import pandas as pd
 import website_functions as wf
 
-
 current_weeknum = '12'
 current_year = '2018'
 
-
-
-#start of flask app
+# start of flask app
 app = Flask(__name__)
 
+# main webpages
 @app.route('/')
 @app.route('/home')
 def home():
   return render_template('homepage.html', title='Home')
-
-
 
 @app.route('/predictions')
 def predictions():
@@ -54,7 +50,6 @@ def about():
 def contact():
   return render_template('contact-us.html', title='Contact Us')
 
-
 # testing pages
 @app.route('/test')
 def test():
@@ -75,6 +70,6 @@ def test4():
 
 #app.jinja_env.add_extension('jinja2.ext.loopcontrols')
 
+# run the webserver on localhost, port 8080
 if __name__ == '__main__':
   app.run('0.0.0.0',8080, debug=False)
-
