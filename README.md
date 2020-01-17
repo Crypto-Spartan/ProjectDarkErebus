@@ -14,4 +14,4 @@ Welcome to ProjectDarkErebus!
 - I am working to add Neural Networks.
 
 
-[![Run on Repl.it](https://repl.it/badge/github/DaCryptoSpartan/ProjectDarkErebus)](https://repl.it/github/DaCryptoSpartan/ProjectDarkErebus)
+[![Run on Repl.it](https://repl.it/badge/github/DaCryptoSpartan/ProjectDarkErebus)](https://repl.it/@TylerBelfield/ProjectDarkErebus-github)
