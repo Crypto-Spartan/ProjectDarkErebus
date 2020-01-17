@@ -4,6 +4,7 @@ import get_stats as stats
 import get_weeknum
 
 weeknum = get_weeknum.ask_user_for_weeknum()
+season = '2019'
 
 # get all of the stats
 stats.get_all(weeknum)
