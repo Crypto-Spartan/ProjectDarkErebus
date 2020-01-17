@@ -1,0 +1,94 @@
+{% extends 'layout.html' %}
+
+{% block customnav %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" id="mainNav">
+  <div class="container-fluid">
+    <a class="navbar-brand js-scroll-trigger" href="/">The Football AI</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#predictions">Predictions</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#statistics">Statistics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#about-our-bots">About Our Bots</a>
+        </li>
+        <!-- Basic dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">More</a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item navdropitem" href="/predictions-chart">Full Prediction Chart</a>
+            <a class="dropdown-item navdropitem" href="/predictions-archive">Predictions Archive</a>
+            <a class="dropdown-item navdropitem" href="/about-us">About Us</a>            
+            <a class="dropdown-item navdropitem" href="/contact-us">Contact Us</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item disabled" href="#">More to come...</a>
+          </div>
+        </li>
+        <!-- Basic dropdown -->
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock customnav %}
+
+
+{% block bodycontent %}
+  <header class="text-white">
+    <div class="container text-center">
+      <h1>Welcome to The Football AI</h1>
+      <p class="lead">Where machine learning and sports come together</p>
+    </div>
+  </header>
+
+  <section id="predictions">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2><a href="/predictions">Predictions</a></h2>
+          <p class="lead">We use state-of-the-art machine learning algorithms to predict the winner of football games each week. Our bots go head to head, constantly competing to be the best predictor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="statistics" class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2><a href="/statistics">Statistics</a></h2>
+          <p class="lead">Check out our statistics page to view how well the bots are doing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about-our-bots">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2><a href="/about-our-bots">About Our Bots</a></h2>
+          <p class="lead">Each "bot" is actually a different machine learning algorithm! As the weeks go by, these algorithms will become "smarter" as they learn more and more each week. Some of the algorithms include:</p>
+          <ul>
+            <li>K Nearest Neighbor</li>
+            <li>Random Forest</li>
+            <li>Logistic Regression</li>
+            <li>XGBoost</li>
+            <li>Linear and RBF Support Vector Machine</li>
+            <li>& More...</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock bodycontent %}
+
+{% block customjs %}
+  <!-- Custom JavaScript for this theme -->
+  <script src="{{ url_for('static', filename='js/scrolling-nav.js') }}"></script>
+{% endblock customjs %}

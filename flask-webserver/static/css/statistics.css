@@ -1,0 +1,38 @@
+body { 
+  padding-top: 57px; 
+}
+
+/*! Actual button */
+.nav-link.btn.active.dropdown-toggle {
+  background-color: #00C851;
+}
+
+/*! Menu of dropdown, once clicked */
+.nav-pills .dropdown-menu,
+.nav-pills .dropdown-menu.active {
+    background-color: #00C851;
+}
+
+.dropdown-item.statsdropitem {
+    color: #ffffff;
+}
+
+.dropdown-item.statsdropitem:hover,
+.dropdown-item.statsdropitem:focus,
+.dropdown-item.statsdropitem.active {
+    color: #333333;
+    background-color: rgba(255,255,255,.75);
+}
+
+/*! buttons next to dropdown */
+.btn.btn-sm:hover,
+.btn.btn-sm:active {
+  background-color: #00C851;
+}
+
+.btn.btn-sm:focus {
+  background-color: #00C851;
+  color: #fff
+}
+
+

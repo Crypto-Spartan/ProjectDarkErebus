@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block bodycontent %}
+  <header class="text-white">
+    <div class="container text-center">
+      <h1>FAQ</h1>
+      <p class="lead">About Us</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>About Us</h2>
+          <p class="lead">I am a Cybersecurity student who wanted to learn more about programming and machine learning. I partake in a football "pickem" league every year, and I attempted to create something that could pick better than me. To share the results of my project, I created this website.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>How did you do all of this?</h2>
+          <p class="lead">When I started these predictions in 2018, the only relevant knowledge that I had was a little bit of python. I could write a few scripts that could do basic things, but not much more. When I started this project, I was in over my head. It took a lot of time, dedication, and effort to get this to where it is today.</p>
+          <p class="lead">The best advice I can give is to continuously reseach, and never stop learning. I never thought that I would be able to actually run these predictions, and now I'm running a website! (I built the website with python as well, it's running with Flask!)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Contact</h2>
+          <p class="lead">Contact us <a href="/contact">here</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock bodycontent %}
+
+{% block customjs %}
+  <!-- Custom JavaScript for this theme -->
+  <script src="{{ url_for('static', filename='js/scrolling-nav.js') }}"></script>
+{% endblock customjs %}

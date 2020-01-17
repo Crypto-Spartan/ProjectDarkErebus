@@ -10,10 +10,22 @@
         * Keep a record for each of the bots for fans to follow
 * automate the webscraping and prediction tasks (should come when webapp is built)
 
-#### v0.4.7 - 06/19/19
+#### v0.5.0 - 16 Jan 20 
+##### ***Major Update***
+* Entire project moved to github
+ * also ported project to one repl on repl.it
+* New date scheme in changelog
+* Officially added website
+  * full functionality not operational, mainly statistics page not working
+  * predictions showing properly
+  * archive working
+    * (would like to add dropdowns instead of new links for archive)
+* Investigating a potential bug in RBF SVM, as all predictions show same probability
+
+#### v0.4.7 - 19 June 19
 * Added data up to week 15 from last season to the remote repo
 
-#### v0.4.6.1 - 06/19/19
+#### v0.4.6.1 - 19 June 19
 * Re-evaluating project for upcoming season
 * Added new neural_net_visualized.py script, imported from the old repl.it project
     * Evaluating when neural net visualization was built in, looking to add visualization for other algorithms if possible
@@ -21,12 +33,12 @@
 * Slightly modified changelog's 'planned changes'
 * Fix typos in changelog 
 
-#### v0.4.6 - 11/21/18
+#### v0.4.6 - 21 Nov 18
 * Added week 12 predictions
 * Moved files into data folder for cleanup
 * Slightly modified changelog's 'planned changes'
 
-#### v0.4.5 - 11/15/18
+#### v0.4.5 - 15 Nov 18
 * **Found mistake in machine_learning.py, all SVM RBF predictions before week 11 are inaccurate, will take out all SVM RBF predictions from previous csv and Accuracy files (week 7-10)**
     * also fixed 'Majority Acc' in the Accuracy files
 * Consider RBF SVM added on week 11's predictions
@@ -34,7 +46,7 @@
 * added week 11 predictions
 * added week 10 accuracy report
 
-#### v0.4.4 - 11/7/18
+#### v0.4.4 - 7 Nov 18
 * Created separate get_winners file for added functionality
     * modified build_table.py and get_winners.py
 * Added week 9 winners
@@ -46,12 +58,12 @@
     * put files into data folder
     * added 'placeholder.txt' to show file structure for some folders
 
-#### v0.4.3 - 11/1/18
+#### v0.4.3 - 1 Nov 18
 * Added Naive Bayes Classifier (GaussianNB)
 * Added K Nearest Neighbor machine learning predictions
 * Included week 9 predictions (With new classifiers included)
 
-#### v0.4.2 - 11/1/18
+#### v0.4.2 - 1 Nov 18
 * Added project to GitLab, imported from repl.it
 * Continued development of Neural Networks
 * Added week 8 accuracy spreadsheet
@@ -59,20 +71,20 @@
 
 **_(Everything prior to v0.4.2 was before the creation of the changelog. The changes listed here are not as detailed as later revisions.)_**
 
-##### v0.4.0 - 10/26/18
+##### v0.4.0 - 26 Oct 18
 * Introduction of Nerual Networks, first time ran with actual predictions
 
-##### v0.3.1 - 10/24/18
+##### v0.3.1 - 24 Oct 18
 * Included week 8 predictions
 
-##### v0.3.0 - 10/24/18
+##### v0.3.0 - 24 Oct 18
 * Added 3 prediction algorithms 
     * Added RBF SVM, Random Forest, and XGBoost (GradientBoostClassifier in SKLearn) 
     * Even though week7 was over, predictions were made with week 5 & 6 stats
 * Restructed the way that final_predictions was built
     * Fixed a bug that caused the probability to appear as below 50%
 
-##### v0.2.6 - 10/17/18
+##### v0.2.6 - 17 Oct 18
 * Introduced multiple bug fixes to get_stats.py
     * Had issues with some input on websites, get_stats.py got confused  
 

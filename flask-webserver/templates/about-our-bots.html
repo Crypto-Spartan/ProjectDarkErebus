@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block bodycontent %}
+  <header class="text-white">
+    <div class="container text-center">
+      <h1>FAQ</h1>
+      <p class="lead">Frequently Asked Questions</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>How do the bots predict the winner?</h2>
+          <p class="lead">Each week, we download lots of statistics about the weekly NFL football games. We take all of these statistics, and put it into one huge data table. Using this table, we feed it through various algorithms for different types of analysis of the data. Since each algorithm looks at the data in a different way, each "bot" will have different predictions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Which algorithm does each "bot" use?</h2>
+          <p class="lead">We will reveal the algorithms at the end of the regular season. Stay tuned to find out!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <h2>Why does Gaussian Naive Bayes not show a probability percentage?</h2>
+          <p class="lead">Due to the way that GNB produces its predictions, the probability would always show as 100%, for every game. Since the probability will always show "perfect" predictions, I decided it was best to remove it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock bodycontent %}
+
+{% block customjs %}
+  <!-- Custom JavaScript for this theme -->
+  <script src="{{ url_for('static', filename='js/scrolling-nav.js') }}"></script>
+{% endblock customjs %}
