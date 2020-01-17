@@ -36,10 +36,7 @@ def get_espn_lines(weeknum):
     list_of_cells = []
     for cell in row.findAll(["th","td"]):
       # individual stats/cells
-      text = cell.text
-      # trying to fix formatting for later
-      #if text == 'POINT SPREAD' or text == 'TOTAL' or text == 'MONEY LINE' or text == 'N/A':
-      #list_of_cells.append(text)   
+      text = cell.text 
       list_of_cells.append(text)
   
     # remove the '\xa0' that was being produced in the list
@@ -62,8 +59,6 @@ def get_espn_lines(weeknum):
 
     # append row/game attributes to main list
     list_of_rows.append(list_of_cells)
-    #print(list_of_cells)
-    
 
   # printing if needed
   #for item in list_of_rows:
@@ -73,7 +68,6 @@ def get_espn_lines(weeknum):
   df_raw_lines = pd.DataFrame(list_of_rows) 
   df_raw_lines = df_raw_lines[1:] #take the data less the header row
   df_raw_lines.columns = ['Name of Game', 'Betting Source', 'Team Line', 'Raw Line']
-  #print(df_raw_lines)
 
   # assign variables to count row numbers
   row_start = 1
@@ -101,9 +95,6 @@ def get_espn_lines(weeknum):
           count += 1
           team1_line = float(numset[:2])
           team2_line = float(numset[2:])
-          #print(str(team1_line)+' team1 line')
-          #print(str(team2_line)+' team2 line')
-          #print('')
           team1_avg_line += team1_line
           team2_avg_line += team2_line
       
@@ -111,9 +102,6 @@ def get_espn_lines(weeknum):
           count += 1
           team1_line = float(numset[:4])
           team2_line = float(numset[4:])
-          #print(str(team1_line)+' team1 line')
-          #print(str(team2_line)+' team2 line')
-          #print('')
           team1_avg_line += team1_line
           team2_avg_line += team2_line
       
@@ -121,9 +109,6 @@ def get_espn_lines(weeknum):
           count += 1
           team1_line = float(numset[:3])
           team2_line = float(numset[3:])
-          #print(str(team1_line)+' team1 line')
-          #print(str(team2_line)+' team2 line')
-          #print('')
           team1_avg_line += team1_line
           team2_avg_line += team2_line
 
@@ -131,9 +116,6 @@ def get_espn_lines(weeknum):
           count += 1
           team1_line = float(numset[:5])
           team2_line = float(numset[5:])
-          #print(str(team1_line)+' team1 line')
-          #print(str(team2_line)+' team2 line')
-          #print('')
           team1_avg_line += team1_line
           team2_avg_line += team2_line
 
@@ -148,7 +130,6 @@ def get_espn_lines(weeknum):
         else:
           if df_raw_lines.loc[row_count_line, 'Team Line'] == 'EVEN':
             count += 1
-            pass
           else:
             print(row_count_line)
             print (df_raw_lines.loc[row_count_line, 'Team Line'])
@@ -166,8 +147,6 @@ def get_espn_lines(weeknum):
     elif count == 0:
       team1_avg_line = 'N/A'
       team2_avg_line = 'N/A'
-    #print(str(team1_avg_line)+' team1 avg')
-    #print(str(team2_avg_line)+' team2 avg')
   
     # find each teamname
     for gamename in game.loc[:, 'Name of Game']:    
@@ -180,7 +159,6 @@ def get_espn_lines(weeknum):
           team1 = 'Chicago'
         elif team2 == 'Bears':
           team2 = 'Chicago'
-        #print(team2)
 
     # add teamname and their associated line to the dictionary
     team_lines[team1] = team1_avg_line
@@ -192,16 +170,14 @@ def get_espn_lines(weeknum):
     # restate game variable for looping
     game = df_raw_lines.loc[row_start:row_end]
 
-  #print(team_lines)
-
   # create dataframe and put data into csv
   df_format_lines = pd.DataFrame.from_dict(team_lines, orient='index', columns=['Avg Line'])
   #print(df_format_lines)
   df_format_lines.to_csv('nfl_lines_week'+weeknum+'.csv')
   return df_format_lines
 
-#get offense and defense statistics from espn
-#does not have a return, just puts data into csv's
+# get offense and defense statistics from espn
+# does not have a return, just puts data into csv's
 def get_espn_stats(weeknum):
   # get the stats for offense of each team
   url_off = "http://www.espn.com/nfl/statistics/team/_/stat/total"
@@ -212,13 +188,13 @@ def get_espn_stats(weeknum):
   # take the data from the html table, add it to the python list
   list_of_rows = []
   for row in stats_table_off.findAll('tr'):
-      #list of attributes for one row/team
+      # list of attributes for one row/team
       list_of_cells = []
       for cell in row.findAll(["th","td"]):
-        #individual stats/cells
+        # individual stats/cells
         text = cell.text
         list_of_cells.append(text)
-      #append row/team attributes to main list
+      # append row/team attributes to main list
       list_of_rows.append(list_of_cells)
 
   # printing if needed
@@ -240,7 +216,6 @@ def get_espn_stats(weeknum):
   df_offense_stats = df_offense_stats.set_index('RK')
   df_offense_stats.to_csv('nfl_stats_off_week'+weeknum+'.csv')
 
-
   # get the stats for defense of each team
   url_def = "http://www.espn.com/nfl/statistics/team/_/stat/total/position/defense"
   req_def = requests.get(url_def)
@@ -250,13 +225,13 @@ def get_espn_stats(weeknum):
   # take the data from the html table, add it to the python list
   list_of_rows = []
   for row in stats_table_def.findAll('tr'):
-    #list of attributes for one row/team
+    # list of attributes for one row/team
     list_of_cells = []
     for cell in row.findAll(["th","td"]):
-      #individual stats/cells
+      # individual stats/cells
       text = cell.text
       list_of_cells.append(text)
-    #append row/team attributes to main list
+    # append row/team attributes to main list
     list_of_rows.append(list_of_cells)
 
   # printing if needed
@@ -291,13 +266,14 @@ def get_espn_standings(weeknum):
   def get_afc_stats(soup, team_table, stats_table):
     stats_table_afc_teams = team_table[0]
     stats_table_afc_stats = stats_table[0]
-
     list_of_afc_teams = []
+
     for row in stats_table_afc_teams.findAll('tr'):
-      #list of attributes for one row/team
+      # list of attributes for one row/team
       list_of_cells = []
+      
       for cell in row.findAll(["th","td"]):
-        #individual stats/cells
+        # individual stats/cells
         text = cell.text
         if text == 'AFC East' or text == 'AFC North' or text == 'AFC South' or text == 'AFC West':
           continue
@@ -308,11 +284,11 @@ def get_espn_standings(weeknum):
             text = text[2:]
           else:
             print('BROKEN')
+        
           list_of_cells.append(text)
-        #append row/team attributes to main list
+        
+        # append row/team attributes to main list
         list_of_afc_teams.append(list_of_cells)
-
-    #print(list_of_rows)
 
     #for item in list_of_afc_teams:
       #print(' '.join(item)) #print it pretty
@@ -321,17 +297,20 @@ def get_espn_standings(weeknum):
     count = 0
     list_of_afc_stats = []
     for row in stats_table_afc_stats.findAll('tr'):
-      #list of attributes for one row/team
+      # list of attributes for one row/team
       list_of_cells = []
+      
       for cell in row.findAll(["th","td"]):
-        #individual stats/cells
+        # individual stats/cells
         text = cell.text
         list_of_cells.append(text)
-      #append row/team attributes to main list
+      
+      # append row/team attributes to main list
       if count > 1 and list_of_cells[0] == 'W':
         continue
       else:
         list_of_afc_stats.append(list_of_cells)
+      
       count += 1
 
     #for item in list_of_afc_stats:
@@ -356,6 +335,7 @@ def get_espn_standings(weeknum):
     for row in stats_table_nfc_teams.findAll('tr'):
       #list of attributes for one row/team
       list_of_cells = []
+      
       for cell in row.findAll(["th","td"]):
         #individual stats/cells
         text = cell.text
@@ -369,6 +349,7 @@ def get_espn_standings(weeknum):
           else:
             print('BROKEN')
           list_of_cells.append(text)
+        
         #append row/team attributes to main list
         list_of_nfc_teams.append(list_of_cells)
 
@@ -381,17 +362,20 @@ def get_espn_standings(weeknum):
     count = 0
     list_of_nfc_stats = []
     for row in stats_table_nfc_stats.findAll('tr'):
-      #list of attributes for one row/team
+      # list of attributes for one row/team
       list_of_cells = []
+      
       for cell in row.findAll(["th","td"]):
-        #individual stats/cells
+        # individual stats/cells
         text = cell.text
         list_of_cells.append(text)
-      #append row/team attributes to main list
+      # append row/team attributes to main list
+      
       if count > 1 and list_of_cells[0] == 'W':
         continue
       else:
         list_of_nfc_stats.append(list_of_cells)
+      
       count += 1
 
     #for item in list_of_nfc_stats:
@@ -426,14 +410,14 @@ def get_injuries_stats(weeknum):
   # take the data from the html table, add it to the python list
   list_of_rows = []
   for row in injuries_table.findAll('tr'):
-      #list of attributes for one row/team
-      list_of_cells = []
-      for cell in row.findAll(["th","td"]):
-        #individual stats/cells
-        text = cell.text
-        list_of_cells.append(text)
-      #append row/team attributes to main list
-      list_of_rows.append(list_of_cells)
+    # list of attributes for one row/team
+    list_of_cells = []
+    for cell in row.findAll(["th","td"]):
+      # individual stats/cells
+      text = cell.text
+      list_of_cells.append(text)
+    # append row/team attributes to main list
+    list_of_rows.append(list_of_cells)
 
   # printing if needed
   #for item in list_of_rows:
@@ -466,7 +450,6 @@ def get_injuries_stats(weeknum):
   print(df_combined)
   rownum = 0
   team = df_combined.iloc[rownum]
-
 
   while team.empty == False:
       
