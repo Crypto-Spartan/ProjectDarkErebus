@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block customcss %}
+<!-- Custom styles for this template -->
+<link href="{{ url_for('static', filename='css/statistics.css') }}" rel="stylesheet">
+{% endblock customcss %}
+
+{% block bodycontent %}
+
+<div class="container-fluid flex-grow">
+  <main role="main" class="col-md-12 pt-2 px-4 mb-5">
+    <div class="row my-3 border-bottom">
+      <div class="col-md-6 pb-2 ">
+        <h1 class="mb-0">Predictions Archive</h1>
+        <p class="mb-0">View past predictions.</p>
+      </div>
+      <div class="col-md-6 pb-2">
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <ul class="nav nav-pills pills-success ml-auto mr-2" id="pills-tab" role="tablist">
+            <li class="nav-item dropdown">
+              <a class="nav-link btn active dropdown-toggle statsdropdownbtn" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">{{ files_list[0]['year'] }}</a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item statsdropitem" data-toggle="pill" role="tab" href="#pills-1">{{ files_list[0]['year'] }}</a>
+                {% for i in files_list %}
+                {% if loop.first %}
+                {% else %}
+                <a class="dropdown-item statsdropitem" data-toggle="pill" href="#pills-{{ loop.index }}">{{ i['year'] }}</a>                
+                {% endif %}
+                {% endfor %}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content pt-2 pl-1" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-1" role="tabpanel" aria-labelledby="pills-1-tab">
+        <h3>{{ files_list[0]['year'] }} Archive</h3>
+        <div class="row">
+          <div class="col-sm">
+            <h5>Separated by Bot</h5>        
+            <ul>
+            {% for x in files_list[0]['files'] %}        
+              <li><a href="/archive/predictions/{{ files_list[0]['year'] }}/{{ x['num'] }}">{{ x['week'] }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="col-sm">
+            <h5>Large Chart</h5>
+            <ul>
+            {% for x in files_list[0]['files'] %}        
+              <li><a href="/archive/predictions-chart/{{ files_list[0]['year'] }}/{{ x['num'] }}">{{ x['week'] }}</a></li>
+            {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% for i in files_list %}
+      {% if loop.first %}
+      {% else %}
+      <div class="tab-pane fade" id="pills-{{ loop.index }}" role="tabpanel" aria-labelledby="pills-{{ loop.index }}-tab">
+        <h3>{{ i['year'] }} Archive</h3>
+        <div class="row">
+          <div class="col-sm">
+            <h5>Separated by Bot</h5>
+            <ul>      
+              {% for x in i['files'] %}
+              <li><a href="/archive/predictions/{{ i['year'] }}/{{ x['num'] }}">{{ x['week'] }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="col-sm">
+            <h5>Large Chart</h5>
+            <ul>      
+              {% for x in i['files'] %}
+              <li><a href="/archive/predictions-chart/{{ i['year'] }}/{{ x['num'] }}">{{ x['week'] }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+
+  </main>
+</div>
+{% endblock bodycontent %}
+
+
+{% block customjs %}
+
+<script>
+$(".dropdown-menu a").click(function(){
+  $(this).parents(".dropdown").find('.btn').html($(this).text());
+  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+});
+</script>
+
+{% endblock customjs %}
