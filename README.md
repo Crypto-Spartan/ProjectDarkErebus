@@ -12,3 +12,7 @@ Welcome to ProjectDarkErebus!
 - I am currently pulling statistics from various sources and running them through multiple machine learning algorithms.
 - So far, I have successfully implemented Logistic Regression, Linear SVM, RBF SVM, Random Forrest, XGBoost, K Nearest Neighbor, and Gaussian Naive Bayes.
 - I am working to add Neural Networks.
+
+
+
+[![Run on Repl.it](https://repl.it/badge/github/DaCryptoSpartan/ProjectDarkErebus)](https://repl.it/github/DaCryptoSpartan/ProjectDarkErebus)
