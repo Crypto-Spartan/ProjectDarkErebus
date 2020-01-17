@@ -20,6 +20,7 @@
   * predictions showing properly
   * archive working
     * (would like to add dropdowns instead of new links for archive)
+* Investigating a potential bug in RBF SVM, as all predictions show same probability
 
 #### v0.4.7 - 19 June 19
 * Added data up to week 15 from last season to the remote repo
